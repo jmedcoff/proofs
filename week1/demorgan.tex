@@ -1,0 +1,72 @@
+\documentclass[12pt]{amsart}
+
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{geometry}
+\geometry{a4paper}
+
+\newtheorem{thm}{Theorem}
+\newtheorem{prop}{Proposition}
+\newtheorem{lem}{Lemma}
+\newtheorem{cor}{Corollary}
+\newtheorem{rem}{Remark}
+\newtheorem{exa}{Example}
+
+\title{DeMorgan's Laws and Hexagonal Symmetry}
+\author{Jason Medcoff}
+
+\begin{document}
+	
+	\maketitle
+	
+	\begin{abstract}
+		Here proofs for each of DeMorgan's two laws are given. A regular hexagon is constructed with compass and straightedge, and its symmetries are described.
+	\end{abstract}
+	
+	
+	\section{DeMorgan's Laws}
+	
+	\begin{thm}
+		For any two sets $A$ and $B$, $(A \cup B)^{\complement} = A^{\complement} \cap B^{\complement}$.
+	\end{thm}
+	
+	\begin{proof}
+		
+		Let $x \in (A \cup B)^{\complement}$. Then $x \notin A \cup B$. It must be the case that $x \notin A$ and $x \notin B$. Thus, $x \in A^{\complement}$ and $x \in B^{\complement}$, so $x \in A^{\complement} \cap B^{\complement}$. This means that $\forall x \in (A \cup B)^{\complement}$, $x \in A^{\complement} \cap B^{\complement}$.
+		By the definition of set inclusion, $(A \cup B)^{\complement} \subset A^{\complement} \cap B^{\complement}$.
+		$\newline$
+		
+		Let $y \in A^{\complement} \cap B^{\complement}$. Then $y \in A^{\complement}$ and $y \in B^{\complement}$. So $y \notin A$ and $y \notin B$. Therefore, $y \notin A \cup B$, so it must be that $y \in (A \cup B)^{\complement}$. Similar to above, it follows that $A^{\complement} \cap B^{\complement} \subset (A \cup B)^{\complement}$.
+		$\newline \newline$
+		By definition of set equality, $(A \cup B)^{\complement} = A^{\complement} \cap B^{\complement}$.	 		
+	\end{proof}
+	
+	\begin{thm}
+		For any two sets A and B, $(A \cap B)^{\complement} = A^{\complement} \cup B^{\complement}$.
+	\end{thm}
+	
+	\begin{proof}
+		Let $x \in (A \cap B)^{\complement}$. Then $x \notin A \cap B$. So $x\notin A$ or $x \notin B$. Therefore $x \in A^{\complement}$ or $x \in B^{\complement}$. Thus, $x \in A^{\complement} \cup B^{\complement}$. By the definition of set inclusion, $(A \cap B)^{\complement} \subset A^{\complement} \cup B^{\complement}$.
+		$\newline$
+		
+		Let $y \in A^{\complement} \cup B^{\complement}$. It follows that $y \in A^{\complement}$ or $y \in B^{\complement}$. Then $y \notin A$ or $y \notin B$. So $y \notin A \cap B$, therefore $y \in (A \cap B)^{\complement}$. Similar to above, we find that $A^{\complement} \cup B^{\complement} \subset  (A \cap B)^{\complement}$.
+		$\newline$
+		By definition of set equality, $(A \cap B)^{\complement} = A^{\complement} \cup B^{\complement}$.
+	\end{proof}
+	
+	
+	\section{The Regular Hexagon}
+	
+	A regular hexagon is 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+\end{document}
