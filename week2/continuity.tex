@@ -163,9 +163,20 @@
 		Let $u = t^3$. Then we have
 		$$u^2 - qu - \frac{p^3}{27} = 0 , $$
 		a quadratic equation in $u$. From the quadratic formula, we have solutions 
-		$$u = \frac{q}{2} \pm \sqrt{\frac{(q)^2}{4} + \frac{p^3}{27}} $$
+		$$u = \frac{q}{2} + \sqrt{\frac{(q)^2}{4} + \frac{p^3}{27}} \ , \ u = \frac{q}{2} - \sqrt{\frac{(q)^2}{4} + \frac{p^3}{27}} $$
 		which yields
-		$$t = \sqrt[3]{\frac{q}{2} \pm \sqrt{\frac{(q)^2}{4} + \frac{p^3}{27}}} . $$
+		$$t = \sqrt[3]{\frac{q}{2} + \sqrt{\frac{(q)^2}{4} + \frac{p^3}{27}}} \ , \ t = \sqrt[3]{\frac{q}{2} - \sqrt{\frac{(q)^2}{4} + \frac{p^3}{27}}} . $$
+		
+		Recall the previously asserted equality $st = \frac{p}{3}$, which implies $s^3 = \frac{p^3}{27t^3} $. Begin by taking the positive root. We have
+		$$ t^3 = \frac{q}{2} + \sqrt{\frac{(q)^2}{4} + \frac{p^3}{27}} , $$
+		which gives
+		\begin{equation*}
+		\begin{split}
+			s^3 & = \frac{p^3}{27 \Big(\frac{q}{2} + \sqrt{\frac{(q)^2}{4} + \frac{p^3}{27}} \Big)}
+		\end{split}
+		\end{equation*}
+		If we take the negative root, we similarly have
+		$$ s^3 = \Big( \frac{q}{2} - \sqrt{\frac{(q)^2}{4} + \frac{p^3}{27}} \Big) \frac{p^3}{27} . $$
 		
 		Let $t_1$ be a particular solution. Construct a root of unity $z = - \frac{1}{2} + \frac{\sqrt{3}}{2}i$. Then the two other solutions are $t_2 = t_1 z$ and $t_3 = t_1 z^2$.
 		
