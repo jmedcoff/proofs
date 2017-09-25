@@ -1,0 +1,441 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.5.31)  10 SEP 2017 12:50
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**\nonstopmode\nofiles\PassOptionsToPackage{active,tightpage,auctex}{preview}\A
+tBeginDocument{\ifx\ifPreview\undefined\RequirePackage[displaymath,floats,graph
+ics,textmath,sections,footnotes]{preview}[2004/11/05]\fi} \input _region_.tex
+(./_region_.tex  !name(paper.tex)
+(/usr/share/texlive/texmf-dist/tex/latex/amscls/amsart.cls
+Document Class: amsart 2015/03/04 v2.20.2
+\linespacing=\dimen102
+\normalparindent=\dimen103
+\normaltopskip=\skip41
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2016/11/05 v2.16a AMS math features
+\@mathmargin=\skip42
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks14
+\ex@=\dimen104
+))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen105
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count79
+LaTeX Info: Redefining \frac on input line 213.
+\uproot@=\count80
+\leftroot@=\count81
+LaTeX Info: Redefining \overline on input line 375.
+\classnum@=\count82
+\DOTSCASE@=\count83
+LaTeX Info: Redefining \ldots on input line 472.
+LaTeX Info: Redefining \dots on input line 475.
+LaTeX Info: Redefining \cdots on input line 596.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen106
+LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
+\macc@depth=\count84
+\c@MaxMatrixCols=\count85
+\dotsspace@=\muskip10
+\c@parentequation=\count86
+\dspbrk@lvl=\count87
+\tag@help=\toks15
+\row@=\count88
+\column@=\count89
+\maxfields@=\count90
+\andhelp@=\toks16
+\eqnshift@=\dimen107
+\alignsep@=\dimen108
+\tagshift@=\dimen109
+\tagwidth@=\dimen110
+\totwidth@=\dimen111
+\lineht@=\dimen112
+\@envbody=\toks17
+\multlinegap=\skip43
+\multlinetaggap=\skip44
+\mathdisplay@stack=\toks18
+LaTeX Info: Redefining \[ on input line 2817.
+LaTeX Info: Redefining \] on input line 2818.
+)
+LaTeX Font Info:    Try loading font information for U+msa on input line 388.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)
+\copyins=\insert199
+\abstractbox=\box28
+\listisep=\skip45
+\c@part=\count91
+\c@section=\count92
+\c@subsection=\count93
+\c@subsubsection=\count94
+\c@paragraph=\count95
+\c@subparagraph=\count96
+\c@figure=\count97
+\c@table=\count98
+\abovecaptionskip=\skip46
+\belowcaptionskip=\skip47
+\captionindent=\dimen113
+\thm@style=\toks19
+\thm@bodyfont=\toks20
+\thm@headfont=\toks21
+\thm@notefont=\toks22
+\thm@headpunct=\toks23
+\thm@preskip=\skip48
+\thm@postskip=\skip49
+\thm@headsep=\skip50
+\dth@everypar=\toks24
+)
+(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2010/09/12 v5.6 Page Geometry
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks25
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2016/05/14 v3.1 Provides the ifpdf switch
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifvtex.sty
+Package: ifvtex 2016/05/16 v1.6 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+)
+(/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+\Gm@cnth=\count99
+\Gm@cntv=\count100
+\c@Gm@tempcnt=\count101
+\Gm@bindingoffset=\dimen114
+\Gm@wd@mp=\dimen115
+\Gm@odd@mp=\dimen116
+\Gm@even@mp=\dimen117
+\Gm@layoutwidth=\dimen118
+\Gm@layoutheight=\dimen119
+\Gm@layouthoffset=\dimen120
+\Gm@layoutvoffset=\dimen121
+\Gm@dimlist=\toks26
+)
+\c@thm=\count102
+\c@prop=\count103
+\c@lem=\count104
+\c@cor=\count105
+\c@rem=\count106
+\c@exa=\count107
+
+No file _region_.aux.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+(/home/jason/.emacs.d/elpa/auctex-11.90.2/latex/preview.sty
+Package: preview 2010/02/14 11.90 (AUCTeX/preview-latex)
+
+(/home/jason/.emacs.d/elpa/auctex-11.90.2/latex/prtightpage.def
+\PreviewBorder=\dimen122
+)
+(/home/jason/.emacs.d/elpa/auctex-11.90.2/latex/prauctex.def
+No auxiliary output files.
+
+
+\hbadness=\count108
+\hfuzz=\dimen123
+(/home/jason/.emacs.d/elpa/auctex-11.90.2/latex/prauctex.cfg))
+(/home/jason/.emacs.d/elpa/auctex-11.90.2/latex/prfootnotes.def)
+\pr@snippet=\count109
+\pr@box=\box29
+\pr@output=\toks27
+
+Preview: Fontsize 12pt
+Preview: PDFoutput 1
+)
+LaTeX Font Info:    Try loading font information for U+msa on input line 28.
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 28.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: twoside 
+* h-part:(L,W,R)=(71.70166pt, 418.25368pt, 107.55254pt)
+* v-part:(T,H,B)=(101.40665pt, 591.5302pt, 152.11pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=418.25368pt
+* \textheight=591.5302pt
+* \oddsidemargin=-0.56833pt
+* \evensidemargin=35.28255pt
+* \topmargin=7.13666pt
+* \headheight=8.0pt
+* \headsep=14.0pt
+* \topskip=10.0pt
+* \footskip=12.0pt
+* \marginparwidth=90.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=7.0pt plus 11.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidetrue
+* \@mparswitchtrue
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+ !name(paper.tex) !offset(-3) 
+./_region_.tex:42: Preview: Snippet 1 started.
+<-><->
+      
+l.42 \tableofcontents
+                     
+Not a real error.
+
+Preview: Tightpage -32891 -32891 32891 32891
+./_region_.tex:42: Preview: Snippet 1 ended.(537394+0x27410673).
+<-><->
+      
+l.42 \tableofcontents
+                     
+Not a real error.
+
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+No file _region_.toc.
+./_region_.tex:44: Preview: Snippet 2 started.
+<-><->
+      
+l.44 \section
+             {Introduction}
+Not a real error.
+
+./_region_.tex:44: Preview: Snippet 2 ended.(537394+0x27410673).
+<-><->
+      
+l.44 \section{Introduction}
+                           
+Not a real error.
+
+[2
+
+]
+./_region_.tex:48: Preview: Snippet 3 started.
+<-><->
+      
+l.48 \section
+             {The early years}
+Not a real error.
+
+./_region_.tex:48: Preview: Snippet 3 ended.(537394+0x27410673).
+<-><->
+      
+l.48 \section{The early years}
+                              
+Not a real error.
+
+[3
+
+]
+./_region_.tex:53: Preview: Snippet 4 started.
+<-><->
+      
+l.53 \subsection
+                {Elementary Scool}
+Not a real error.
+
+./_region_.tex:53: Preview: Snippet 4 ended.(546132+152916x8603859).
+<-><->
+      
+l.53 \subsection{Elementary Scool}
+                                  
+Not a real error.
+
+[4
+
+]
+./_region_.tex:60: Preview: Snippet 5 started.
+<-><->
+      
+l.60 \section
+             {College education and mathematics}
+Not a real error.
+
+./_region_.tex:60: Preview: Snippet 5 ended.(537394+0x27410673).
+<-><->
+      
+l.60 \section{College education and mathematics}
+                                                
+Not a real error.
+
+[5
+
+]
+./_region_.tex:65: Preview: Snippet 6 started.
+<-><->
+      
+l.65 \section
+             {Being a mathematician}
+Not a real error.
+
+./_region_.tex:65: Preview: Snippet 6 ended.(537394+0x27410673).
+<-><->
+      
+l.65 \section{Being a mathematician}
+                                    
+Not a real error.
+
+[6
+
+]
+./_region_.tex:71: Preview: Snippet 7 started.
+<-><->
+      
+l.71 Let $
+          f(x)$ be a polynomial of degree $n\geq 2$ with complex coefficient...
+
+Not a real error.
+
+./_region_.tex:71: Preview: Snippet 7 ended.(589824+196608x1500033).
+<-><->
+      
+l.71 Let $f(x)$
+                be a polynomial of degree $n\geq 2$ with complex coefficient...
+
+Not a real error.
+
+[7]
+./_region_.tex:71: Preview: Snippet 8 started.
+<-><->
+      
+l.71 Let $f(x)$ be a polynomial of degree $
+                                           n\geq 2$ with complex coefficient...
+
+Not a real error.
+
+./_region_.tex:71: Preview: Snippet 8 ended.(506811+106932x1893248).
+<-><->
+      
+l.71 ...$f(x)$ be a polynomial of degree $n\geq 2$
+                                                   with complex coefficients...
+
+Not a real error.
+
+[8]
+./_region_.tex:71: Preview: Snippet 9 started.
+<-><->
+      
+l.71 ...\geq 2$ with complex coefficients.  Then $
+                                                  f(x)$ has exactly $n$ roots.
+Not a real error.
+
+./_region_.tex:71: Preview: Snippet 9 ended.(589824+196608x1500033).
+<-><->
+      
+l.71 ...2$ with complex coefficients.  Then $f(x)$
+                                                   has exactly $n$ roots.
+Not a real error.
+
+[9]
+./_region_.tex:71: Preview: Snippet 10 started.
+<-><->
+      
+l.71 ...x coefficients.  Then $f(x)$ has exactly $
+                                                  n$ roots.
+Not a real error.
+
+./_region_.tex:71: Preview: Snippet 10 ended.(338603+0x459657).
+<-><->
+      
+l.71 ...coefficients.  Then $f(x)$ has exactly $n$
+                                                   roots.
+Not a real error.
+
+[10]
+
+LaTeX Warning: Citation `gauss-1' on page 1 undefined on input line 80.
+
+
+LaTeX Warning: Reference `thm-1' on page 1 undefined on input line 82.
+
+./_region_.tex:85: Preview: Snippet 11 started.
+<-><->
+      
+l.85 \begin{thebibliography}{50}
+                                
+Not a real error.
+
+./_region_.tex:85: Preview: Snippet 11 ended.(537394+0x27410673).
+<-><->
+      
+l.85 \begin{thebibliography}{50}
+                                
+Not a real error.
+
+[11
+
+]
+\newlabel{tocindent-1}{0pt}
+\newlabel{tocindent0}{15.60016pt}
+\newlabel{tocindent1}{20.88867pt}
+\newlabel{tocindent2}{34.5pt}
+\newlabel{tocindent3}{0pt}
+
+LaTeX Warning: There were undefined references.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 2108 strings out of 493013
+ 25614 string characters out of 6135682
+ 89166 words of memory out of 5000000
+ 5500 multiletter control sequences out of 15000+600000
+ 11539 words of font info for 45 fonts, out of 8000000 for 9000
+ 1302 hyphenation exceptions out of 8191
+ 34i,5n,33p,548b,196s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on _region_.pdf (11 pages, 47467 bytes).
+PDF statistics:
+ 60 PDF objects out of 1000 (max. 8388607)
+ 41 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+
