@@ -99,34 +99,29 @@
 	
 	\begin{proof}
 		We know that the roots $\alpha_1$ and $\alpha_2$ are given by the general quadratic formula. So let
-		
 		$$ \alpha_1 = \frac{-b + \sqrt{b^2 - 4ac}}{2a} $$
 		
 		and let
-		
 		$$ \alpha_2 = \frac{-b - \sqrt{b^2 - 4ac}}{2a} . $$
 		
 		Then we can write $(\alpha_1 - \alpha_2)(\alpha_2 - \alpha_1)$ as
-		
 		$$ \bigg( \frac{(-b + \sqrt{b^2 - 4ac})-(-b - \sqrt{b^2 - 4ac})}{2a} \bigg) \bigg( \frac{(-b - \sqrt{b^2 - 4ac})-(-b + \sqrt{b^2 - 4ac})}{2a} \bigg) . $$
 		
 		Combining terms gives us
-		
 		$$ \bigg( \frac{2\sqrt{b^2 - 4ac}}{2a} \bigg) \bigg( \frac{-2\sqrt{b^2 - 4ac}}{2a} \bigg) . $$
 		
 		Multiplying, we have
-		
 		$$ - \frac{(b^2 - 4ac)}{a^2} = \frac{4ac - b^2}{a^2} . $$
 	\end{proof}
 
 	\section{Cubic Discriminant}
 
-	The following lemmas will be used to prove Claim 3.
+	The following lemma will be used to prove Claim 3.
 
 	\begin{lem}
 		\label{depressed}
 		Given any cubic polynomial $f(x) = ax^3 + bx^2 + cx + d$, let $x = y - \frac{b}{3a}$. $f(x)$ can be written as
-		$$ y^3 + py + q $$
+		$$ g(y) = y^3 + py + q $$
 		with
 		$$ p = \frac{3ac-b^2}{3a^2} \ , \ q = \frac{2b^3 - 9abc + 27a^2d}{27a^3} . $$
 	\end{lem}
@@ -142,50 +137,121 @@
 		$$ y^3 + py + q . $$		
 	\end{proof}
 
-	\begin{lem}
-		Let $f(x) = ax^3 + bx^2 + cx + d$ be a cubic polynomial. Once we have obtained the depressed form $$ y^3 + py + q $$ as described in lemma \ref{depressed}, we can write the solutions to $f(x) = 0$ as
-	\end{lem}
+%	\begin{lem}
+%		Let $f(x) = ax^3 + bx^2 + cx + d$ be a cubic polynomial. Once we have obtained the depressed form $$ y^3 + py + q $$ as described in lemma \ref{depressed}, we can write the solutions to $f(x) = 0$ as
+%	\end{lem}
+%
+%	\begin{proof}
+%		We need to solve $y^3 + py + q = 0$. Set $st = \frac{p}{3}$ and $s^3 - t^3 = -q$. Then we have
+%		$$ (s-t)^3 + 3st(s-t) - (s^3 - t^3) = 0 . $$
+%		which leads to
+%		\begin{equation*}
+%		\begin{split} (s^3 - 3s^2t + 3st^2 - t^3) - (s^3 - 3s^2t + 3st^2 - t^3) & = 0 \\
+%		0 & = 0.
+%		\end{split}
+%		\end{equation*}
+%		
+%		So we need to find $s$ and $t$ that satisfy $st = \frac{p}{3}$ and $s^3 - t^3 = -q$. The first equation can be written as $s = \frac{p}{3t}$, and substituting into the second, we obtain
+%		$$ \frac{p^3}{27t^3} - t^3 = -q . $$
+%		Multiplying by $-t^3$, we have
+%		$$ t^6 - qt^3 - \frac{p^3}{27} = 0 . $$
+%		Let $u = t^3$. Then we have
+%		$$u^2 - qu - \frac{p^3}{27} = 0 , $$
+%		a quadratic equation in $u$. From the quadratic formula, we have solutions 
+%		$$u = \frac{q}{2} + \sqrt{\frac{(q)^2}{4} + \frac{p^3}{27}} \ , \ u = \frac{q}{2} - \sqrt{\frac{(q)^2}{4} + \frac{p^3}{27}} $$
+%		which yields
+%		$$t = \sqrt[3]{\frac{q}{2} + \sqrt{\frac{(q)^2}{4} + \frac{p^3}{27}}} \ , \ t = \sqrt[3]{\frac{q}{2} - \sqrt{\frac{(q)^2}{4} + \frac{p^3}{27}}} . $$
+%		
+%		Recall the previously asserted equality $st = \frac{p}{3}$, which implies $s^3 = \frac{p^3}{27t^3} $. Begin by taking the positive root. We have
+%		$$ t^3 = \frac{q}{2} + \sqrt{\frac{(q)^2}{4} + \frac{p^3}{27}} , $$
+%		which gives
+%		\begin{equation*}
+%		\begin{split}
+%			s^3 & = \frac{p^3}{27 \Big(\frac{q}{2} + \sqrt{\frac{(q)^2}{4} + \frac{p^3}{27}} \Big)}
+%		\end{split}
+%		\end{equation*}
+%		If we take the negative root, we similarly have
+%		$$ s^3 = \Big( \frac{q}{2} - \sqrt{\frac{(q)^2}{4} + \frac{p^3}{27}} \Big) \frac{p^3}{27} . $$
+%		
+%		Let $t_1$ be a particular solution. Construct a root of unity $z = - \frac{1}{2} + \frac{\sqrt{3}}{2}i$. Then the two other solutions are $t_2 = t_1 z$ and $t_3 = t_1 z^2$.
+%		
+%		Let $s_1 = \frac{P}{3t_1}$. Since $st = \frac{p}{3}$, the solutions to the depressed form polynomial are $s_1 - t_1$, $s_1 z^2 - t_1 z$, and $s_1 z - t_1 z^2$.
+%		
+%		
+%	
+%	\end{proof}
+	
+	
+	
+	\begin{clm}
+		Let $f(x) = ax^3 + bx^2 + cx + d$ be a cubic polynomial. Once we have obtained the depressed form $$ g(y) = y^3 + py + q $$ as described in lemma \ref{depressed}, the discriminant is given by
+		$$\Delta_f = 4 p^3 + 27 q^2 . $$
+	\end{clm}
 
 	\begin{proof}
-		We need to solve $y^3 + py + q = 0$. Set $st = \frac{p}{3}$ and $s^3 - t^3 = -q$. Then we have
-		$$ (s-t)^3 + 3st(s-t) - (s^3 - t^3) = 0 . $$
-		which leads to
+		
+		We know that for any cubic polynomial $f(x)$, we can write
 		\begin{equation*}
-		\begin{split} (s^3 - 3s^2t + 3st^2 - t^3) - (s^3 - 3s^2t + 3st^2 - t^3) & = 0 \\
-		0 & = 0.
+		\begin{split}
+		f(x) & = ax^3 + bx^2 + cx + d \\
+		     & = a (x-\alpha_1)(x-\alpha_2)(x-\alpha_3)
 		\end{split}
 		\end{equation*}
 		
-		So we need to find $s$ and $t$ that satisfy $st = \frac{p}{3}$ and $s^3 - t^3 = -q$. The first equation can be written as $s = \frac{p}{3t}$, and substituting into the second, we obtain
-		$$ \frac{p^3}{27t^3} - t^3 = -q . $$
-		Multiplying by $-t^3$, we have
-		$$ t^6 - qt^3 - \frac{p^3}{27} = 0 . $$
-		Let $u = t^3$. Then we have
-		$$u^2 - qu - \frac{p^3}{27} = 0 , $$
-		a quadratic equation in $u$. From the quadratic formula, we have solutions 
-		$$u = \frac{q}{2} + \sqrt{\frac{(q)^2}{4} + \frac{p^3}{27}} \ , \ u = \frac{q}{2} - \sqrt{\frac{(q)^2}{4} + \frac{p^3}{27}} $$
-		which yields
-		$$t = \sqrt[3]{\frac{q}{2} + \sqrt{\frac{(q)^2}{4} + \frac{p^3}{27}}} \ , \ t = \sqrt[3]{\frac{q}{2} - \sqrt{\frac{(q)^2}{4} + \frac{p^3}{27}}} . $$
+		if it has roots $\alpha_1$, $\alpha_2$, and $\alpha_3$. Expanding, we obtain
+		$$ f(x) = ax^3 + ax^2 (-\alpha_1-\alpha_2-\alpha_3) + ax (\alpha_1\alpha_2+\alpha_1\alpha_3+\alpha_2\alpha_3) + a(-\alpha_1\alpha_2\alpha_3) $$
 		
-		Recall the previously asserted equality $st = \frac{p}{3}$, which implies $s^3 = \frac{p^3}{27t^3} $. Begin by taking the positive root. We have
-		$$ t^3 = \frac{q}{2} + \sqrt{\frac{(q)^2}{4} + \frac{p^3}{27}} , $$
 		which gives
 		\begin{equation*}
 		\begin{split}
-			s^3 & = \frac{p^3}{27 \Big(\frac{q}{2} + \sqrt{\frac{(q)^2}{4} + \frac{p^3}{27}} \Big)}
+		b & = a (-\alpha_1-\alpha_2-\alpha_3) \\
+		c & = a (\alpha_1\alpha_2+\alpha_1\alpha_3+\alpha_2\alpha_3) \\
+		d & = a (-\alpha_1\alpha_2\alpha_3) .
 		\end{split}
 		\end{equation*}
-		If we take the negative root, we similarly have
-		$$ s^3 = \Big( \frac{q}{2} - \sqrt{\frac{(q)^2}{4} + \frac{p^3}{27}} \Big) \frac{p^3}{27} . $$
 		
-		Let $t_1$ be a particular solution. Construct a root of unity $z = - \frac{1}{2} + \frac{\sqrt{3}}{2}i$. Then the two other solutions are $t_2 = t_1 z$ and $t_3 = t_1 z^2$.
+		Considering the case for $ y^3 + py + q $, we have $a = 1$ and $-\alpha_1-\alpha_2-\alpha_3 = 0$. Then let $\alpha_3 = - \alpha_1 - \alpha_2$. We now can expand as above to obtain
+		$$ g(y) = \alpha_1^2\alpha_2 - \alpha_1^2 y + \alpha_1\alpha_2^2 - \alpha_1\alpha_2 y - \alpha_2^2 y + y^3 . $$
+		This gives
+		$$ g(y) = y^3 + y (-\alpha_1^2 + \alpha_1\alpha_2 - \alpha_2^2) + (\alpha_1^2\alpha_2 + \alpha_1\alpha_2^2) , $$
+		from which we may derive
+		\begin{equation*}
+		\begin{split}
+		p & = -\alpha_1^2 - \alpha_1\alpha_2 - \alpha_2^2 \\
+		q & = \alpha_1^2\alpha_2 + \alpha_1\alpha_2^2 .
+		\end{split}
+		\end{equation*}
 		
-		Let $s_1 = \frac{P}{3t_1}$. Since $st = \frac{p}{3}$, the solutions to the depressed form polynomial are $s_1 - t_1$, $s_1 z^2 - t_1 z$, and $s_1 z - t_1 z^2$.
+		For the cubic, we have the discriminant
+		$$ \Delta_f := \prod_{i\neq j} (\alpha_i - \alpha_j) = (\alpha_1 - \alpha_2)(\alpha_2 - \alpha_1)(\alpha_3 - \alpha_2)(\alpha_2 - \alpha_3)(\alpha_1 - \alpha_3)(\alpha_3 - \alpha_1) $$
 		
+		and since $\alpha_3 = - \alpha_1 - \alpha_2$, we can make the substitution
+		$$ \Delta_f = (\alpha_1 - \alpha_2)(\alpha_2 - \alpha_1)((-\alpha_1-\alpha_2) - \alpha_2)(\alpha_2 - (-\alpha_1-\alpha_2))(\alpha_1 - (-\alpha_1-\alpha_2))((-\alpha_1-\alpha_2) - \alpha_1) . $$
 		
-	
+		Expanding yields
+		$$ \Delta_f = -4 \alpha_1^6 - 12 \alpha_1^5 \alpha_2 + 3 \alpha_1^4 \alpha_2^2 + 26 \alpha_1^3 \alpha_2^3 + 3 \alpha_1^2 \alpha_2^4 - 12 \alpha_1 \alpha_2^5 - 4 \alpha_2^6 . $$
+		
+		Consider the quantity
+		$$ 4 p^3 + 27 q^2 . $$
+		
+		Using the above expressions for $p$ and $q$, we have
+		\begin{equation*}
+		\begin{split}
+		4 p^3 + 27 q^2 & = 4 (-\alpha_1^2 - \alpha_1\alpha_2 - \alpha_2^2)^3 + 27 (\alpha_1^2\alpha_2 + \alpha_1\alpha_2^2)^2 .\\
+		\end{split}
+		\end{equation*}
+		
+		Expanding this expression gives
+		$$ -4 \alpha_1^6 - 12 \alpha_1^5 \alpha_2 + 3 \alpha_1^4 \alpha_2^2 + 26 \alpha_1^3 \alpha_2^3 + 3 \alpha_1^2 \alpha_2^4 - 12 \alpha_1 \alpha_2^5 - 4 \alpha_2^6 $$
+		
+		which is exactly $\Delta_f$ as above.
+		
+		So, given a cubic polynomial in the general form $f(x) = ax^3 + bx^2 + cx + d$, we can find the discriminant by evaluating
+		$$\Delta_f = 4 p^3 + 27 q^2 $$
+		
+		where as shown in lemma \ref{depressed}, $p$ and $q$ are given in terms of $a$, $b$, $c$, and $d$ by
+		$$ p = \frac{3ac-b^2}{3a^2} \ , \ q = \frac{2b^3 - 9abc + 27a^2d}{27a^3} . $$
 	\end{proof}
-	
 	
 	
 	
