@@ -1,0 +1,248 @@
+\documentclass[12pt]{amsart}
+
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{enumitem}
+\geometry{a4paper}
+
+\newtheorem{thm}{Theorem}
+\newtheorem{prop}{Proposition}
+\newtheorem{lem}{Lemma}
+\newtheorem{cor}{Corollary}
+\newtheorem{rem}{Remark}
+\newtheorem{exa}{Example}
+\newtheorem{clm}{Claim}
+
+\newtheoremstyle{case}{}{}{}{}{}{:}{ }{}
+\theoremstyle{case}
+\newtheorem{case}{Case}
+
+\title{Double Roots and Sylvester Matrices}
+\author{Jason Medcoff}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section{Presence of a Double Root}
+	
+	Let $f(x)$ be a degree 2 polynomial with real coefficients given by
+	$$ f(x) = ax^2 + bx + c . $$
+	Without loss of generality, assume $a$ is nonzero.
+	
+	\begin{clm}
+		The following are equivalent:
+		\begin{enumerate}[label=(\roman*)]
+			\item $f(x)$ has a double root $\alpha$
+			\item $f'(\alpha) = 0$
+			\item $\Delta_f = 0$
+			\item $f(x)$ has the same sign as the leading coefficient $a \in \mathbb{R}$, for all $x \in \mathbb{R} \setminus \{\alpha\}$.
+		\end{enumerate}
+	\end{clm}
+	
+	\begin{proof}
+		In (1) we will show that $\mathit{(i)}$ implies $\mathit{(ii)}$, and (2) shows the reverse. In (3) it is shown that $\mathit{(i)}$ implies $\mathit{(iii)}$ and in (4) the reverse is shown. In (5) and (6) it is demonstrated that $\mathit{(i)}$ implies $\mathit{(iv)}$ and $\mathit{(iv)}$ implies $\mathit{(i)}$, respectively.
+		
+		
+		\begin{enumerate}
+			\item % 1 implies 2
+			The quadratic polynomial $f(x)$ can be written as
+			$$ f(x) = a(x-\alpha_1)(x-\alpha_2) $$
+			but in the case of a double root, this simplifies to
+			$$ f(x) = a(x-\alpha)(x-\alpha) = a(x-\alpha)^2 . $$
+			Consider the derivative $f'(x)$. Then we have
+			\begin{equation*}
+			\begin{split}
+			f'(x) & = \frac{d}{dx} a(x-\alpha)^2 \\
+			& = 2a(x-\alpha) .
+			\end{split}
+			\end{equation*} 
+			It follows that if we evaluate $f'(\alpha)$, we have
+			$$ f'(\alpha) = 2a(\alpha - \alpha) = 2a(0) = 0 . $$
+			
+			
+			$\newline$
+			\item % 2 implies 1
+%			It cannot be proven that $\mathit{(ii)}$ implies anything. $\alpha$ is only given any meaning in $\mathit{(i)}$ as a double root; otherwise we do not know anything about it, so we must assume it is any number on $f$'s domain. But then there is nothing special about $f'(\alpha)$ being zero, since every quadrilateral polynomial has some value for which the derivative at that value is zero. Not enough information is given in $\mathit{(ii)}$ to show any of the other assumptions.
+
+			Given that $\alpha$ is a root of $f(x)$, we want to show that $f'(\alpha) = 0$ implies that $\alpha$ is a double root. Suppose instead that $f(x)$ has two distinct roots, $\alpha_1$ and $\alpha_2$. Then we can write
+			$$ f(x) = a(x-\alpha_1)(x-\alpha_2) . $$
+			Taking the derivative, we have
+			\begin{equation*}
+			\begin{split}
+			f'(x) & = a[(x-\alpha_1) + (x-\alpha_2)] \\
+			& = a(2x - \alpha_1 - \alpha_2) .
+			\end{split}
+			\end{equation*}
+			If we compute $f'(\alpha_1)$ and $f'(\alpha_2)$, we have
+			$$ f'(\alpha_1) = a(\alpha_1 - \alpha_2), \ f'(\alpha_2) = a(\alpha_2 - \alpha_1) $$
+			and since we assumed that $\alpha_1$ and $\alpha_2$ are distinct and $a$ is nonzero, we have $f'(\alpha_1) \neq 0$ and $f'(\alpha_2) \neq 0$. Then, by the contrapositive, we have that if $\alpha$ is a root of $f(x)$, $f'(\alpha) = 0$ implies $\alpha$ is a double root of $f(x)$.
+			
+			
+			
+			
+			
+			
+			$\newline$
+			\item % 1 implies 3
+			we write the discriminant as
+			$$ \Delta_f = (\alpha_1 - \alpha_2)(\alpha_2 - \alpha_1) . $$
+			If $f(x)$ has a double root, then $\alpha_1 = \alpha_2$, and we have
+			$$ \Delta_f = (\alpha_1 - \alpha_1)(\alpha_1 - \alpha_1) $$
+			and it is shown that $\Delta_f = 0$.
+			
+			
+			$\newline$
+			\item % 3 implies 1
+			With the discriminant given as 
+			$$ \Delta_f = (\alpha_1 - \alpha_2)(\alpha_2 - \alpha_1) , $$
+			it must be that if $\Delta_f = 0$, we have
+			$$ 0 = (\alpha_1 - \alpha_2)(\alpha_2 - \alpha_1) $$
+			and it follows that $\alpha_1$ must equal $\alpha_2$. Then we can write the polynomial $f(x)$ as
+			$$ f(x) = a(x- \alpha_1)(x-\alpha_2) $$
+			and since $\alpha_1 = \alpha_2$ we have
+			$$ f(x) = a(x-\alpha_1)^2 . $$
+			Then the root $\alpha_1$ has multiplicity two, which by definition, makes it a double root.
+			
+			$\newline$
+			\item % 1 implies 4
+			As above, we can write the quadratic polynomial as
+			$$ f(x) = a(x-\alpha)^2 . $$
+			Consider the term $(x-\alpha)^2$. As this term is squared, it is always nonnegative. So, $a$ is the only term in the expression that determines the sign of $f(x)$. It follows that for positive $a$, we have a positive term $a$ multiplied by a positive term $(x-\alpha)^2$ which gives a positive product. For negative $a$, we have a negative term multiplied by a positive term, yielding a negative product. 
+			
+			The only case where this is not true is when $x = \alpha$, so we can say that $f(x)$ has the same sign as the leading coefficient $a$ for all $x \in \mathbb{R} \setminus \{\alpha\}$.
+			
+			$\newline$
+			\item % 4 implies 1
+			If $f(x)$ has the same sign as its leading coefficient $a$ for all $x \in \mathbb{R} \setminus \{\alpha\}$, we want to show that $f(x)$ has a double root.
+			Suppose instead that $f(x)$ has two unique roots. Assume without loss of generality that $\alpha_1 < \alpha_2$. Then if we write
+			$$ f(x) = a(x-\alpha_1)(x-\alpha_2) $$
+			we can see that there would exist some values of $x$ such that 
+			$$\alpha_1 < x < \alpha_2$$
+			and we would have
+			$$ x - \alpha_1 > 0, \ \ x - \alpha_2 < 0 $$
+			and so the product $(x-\alpha_1)(x-\alpha_2)$ would be negative. This would lead to $f(x)$ not having the same sign as $a$ for $\alpha_1 < x < \alpha_2$.
+			
+			This contradicts our assumption that $f(x)$ has the same sign as its leading coefficient $a$ for all $x \in \mathbb{R} \setminus \{\alpha\}$, so it must be the case that $\alpha_1 = \alpha_2$ and $f(x)$ has a double root.
+			
+			$\newline$
+			Each statement has been proven true if and only if $\mathit{(i)}$ is true. Therefore, all four statements are equivalent.			
+		\end{enumerate}
+	\end{proof}
+	
+	\section{Sylvester Matrices}
+	
+	\subsection{Problem 2}
+	Let
+	\begin{equation*}
+	\begin{split}
+	f(x) & = x^5 - 3x^4 - 2x^3 + 3x^2 + 7x + 6 \\
+	g(x) & = x^4 + x^2 + 1 .
+	\end{split}
+	\end{equation*}
+	Then the Sylvester matrix of $f$ and $g$ is
+	\[
+	\begin{bmatrix}
+	1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0\\
+	-3 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0\\
+	-2 & -3 & 1 & 0 & 1 & 0 & 1 & 0 & 0\\
+	3 & -2 & -3 & 1 & 0 & 1 & 0 & 1 & 0\\
+	7 & 3 & -2 & -3 & 1 & 0 & 1 & 0 & 1\\
+	6 & 7 & 3 & -2 & 0 & 1 & 0 & 1 & 0\\
+	0 & 6 & 7 & 3 & 0 & 0 & 1 & 0 & 1\\
+	0 & 0 & 6 & 7 & 0 & 0 & 0 & 1 & 0\\
+	0 & 0 & 0 & 6 & 0 & 0 & 0 & 0 & 1\\
+	\end{bmatrix}
+	\]
+	$Res(f,g,x)$ is the determinant of this matrix. Computing the determinant, we have
+	$$ Res(f,g,x) = 0 . $$
+	
+	\subsection{Problem 3}
+	Consider
+	$$ f(x) = 6x^4 - 23x^3 - 19x + 4 . $$
+	$f(x)$ has multiple roots if the discriminant $Res(f,f',x)$ is shown to be zero.
+	We can compute $f'(x)$ to be
+	$$ 24x^3 - 69x^2 - 19 . $$
+	The Sylvester matrix of $f$ and $f'$ is
+	\[
+	\begin{bmatrix}
+	6 & 0 & 0 & 24 & 0 & 0 & 0\\
+	-23 & 6 & 0 & -69 & 24 & 0 & 0\\
+	0 & -23 & 6 & 0 & -69 & 24 & 0\\
+	-19 & 0 & -23 & -19 & 0 & -69 & 24\\
+	4 & -19 & 0 & 0 & -19 & 0 & -69\\
+	0 & 4 & -19 & 0 & 0 & -19 & 0\\
+	0 & 0 & 4 & 0 & 0 & 0 & -19\\
+	\end{bmatrix}
+	\]
+	and the determinant of this matrix is 
+	$$Res(f,f',x) = -3921998592 \neq 0 .$$
+	So, $f(x)$ does not have any multiple roots.
+	
+	\subsection{Problem 4}
+	Consider
+	$$ f(x) = x^4 - bx + 1 . $$
+	We want $b$ such that $f(x)$ has a double root. For $f$ to have a double root we need
+	$$\frac{-1^\frac{4(3)}{2}}{1}Res(f,f',x) = (1) Res(f,f',x) = 0 . $$
+	The Sylvester matrix of $f$ and $f'$ is
+	\[
+	\begin{bmatrix}
+	1 & 0 & 0 & 4 & 0 & 0 & 0\\
+	0 & 1 & 0 & 0 & 4 & 0 & 0\\
+	0 & 0 & 1 & 0 & 0 & 4 & 0\\
+	-b & 0 & 0 & -b & 0 & 0 & 4\\
+	1 & -b & 0 & 0 & -b & 0 & 0\\
+	0 & 1 & -b & 0 & 0 & -b & 0\\
+	0 & 0 & 1 & 0 & 0 & 0 & -b\\
+	\end{bmatrix}
+	\]
+	and the determinant gives
+	$$ Res(f,f',x) = -27b^4 + 256 . $$
+	Using this in the above equation, we have
+	$$ (1) (-27b^4 + 256) = 0 $$
+	and it follows that
+	$$27b^4 = 256 . $$
+	So, for all $b$ that satisfy
+	$$ b^4 = \frac{256}{27} , $$
+	$f(x)$ will have a double root.
+	
+	
+	
+	\subsection{Problem 5}
+	Consider
+	$$ f(x) = x^3 - px + 1 . $$
+	We want $p$ such that $f(x)$ has a double root. So we need
+	$$\frac{-1^\frac{3(2)}{2}}{1}Res(f,f',x) = (-1) Res(f,f',x) = 0 . $$
+	The Sylvester matrix of $f$ and $f'$ is
+	\[
+	\begin{bmatrix}
+	1 & 0 & 3 & 0 & 0\\
+	0 & 1 & 0 & 3 & 0\\
+	-p & 0 & -p & 0 & 3\\
+	1 & -p & 0 & -p & 0\\
+	0 & 1 & 0 & 0 & -p\\
+	\end{bmatrix}
+	\]
+	and computing the determinant yields
+	$$ Res(f,f',x) = -4p^3 + 27 . $$
+	Setting this equal to zero, we have
+	$$ 0 = -4p^3 + 27 $$
+	and it follows that
+	$$ 4p^3 = 27 . $$
+	So for all $p$ such that
+	$$ p^3 = \frac{27}{4}$$
+	is satisfied, $f(x)$ will have a double root.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+\end{document}
