@@ -1,0 +1,121 @@
+\documentclass[12pt]{amsart}
+
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{geometry}
+\geometry{a4paper}
+
+\newtheorem{thm}{Theorem}
+\newtheorem{prop}{Proposition}
+\newtheorem{lem}{Lemma}
+\newtheorem{cor}{Corollary}
+\newtheorem{rem}{Remark}
+\newtheorem{exa}{Example}
+\newtheorem{clm}{Claim}
+
+\newtheoremstyle{case}{}{}{}{}{}{:}{ }{}
+\theoremstyle{case}
+\newtheorem{case}{Case}
+
+\title{Induction}
+\author{Jason Medcoff}
+
+\begin{document}
+	
+	\maketitle
+	
+	\noindent \textbf{Problem 1.} Prove by induction that $7^n - 1$ is divisible by 6 for all $n \geq 1$.
+	
+	\begin{proof}
+		First, let $n = 1$. Then we have
+		$$7^1 - 1 = 6 . $$
+		Clearly, 6 is divisible by 6, so the statement holds for $n=1$.
+		
+		Next, let $n=k$. Assuming the statement holds, we have
+		$$$$
+		\begin{equation*}
+		\begin{split}
+		7^k - 1 & = 6a \\
+		7^k & = 6a + 1
+		\end{split}
+		\end{equation*}
+		for some integer a. Letting $n = k+1$, we can show by algebraic manipulation that
+		\begin{equation*}
+		\begin{split}
+		7^{k+1} & = 7(6a + 1) \\
+		7^{k+1} & = 42a + 7 \\
+		7^{k+1} - 1 & = 42a + 6 .\\
+		\end{split}
+		\end{equation*}
+		We can factor the right side of the equality to obtain
+		$$ 6(7a + 1) ,$$
+		and then let $b = 7a + 1$. Now we have
+		$$ 7^{k+1} - 1 = 6b $$
+		for some integer $b$, and therefore $7^{k+1} - 1$ is divisible by 6.
+	\end{proof}
+	
+	\noindent \textbf{Problem 2.} Show that, given $x_1 = 1$ and
+	$$ x_{k+1} = \frac{x_k}{x_k + 2} , $$
+	we can write
+	$$ x_n = \frac{1}{2^n - 1} $$
+	for all $n \geq 1$.
+	
+	\begin{proof}
+		Begin by calculating the first few values of $x_n$: namely, $x_i$ for $i \in \{2,3,4,5\}$.
+		We can see that
+		\begin{equation*}
+		\begin{split}
+		x_2 & = \frac{1}{4-1} = \frac{1}{3}, \\ x_3 & = \frac{1}{8-1} = \frac{1}{7}, \\ x_4 & = \frac{1}{16-1} = \frac{1}{15}, \\ x_5 & = \frac{1}{32-1} = \frac{1}{31} .
+		\end{split}
+		\end{equation*}
+		
+		Let $n=1$. Then we have
+		$$x_1 = \frac{1}{2-1} = 1$$
+		which is as given.
+		
+		Now let $n=k$. Then we can write
+		$$ x_k = \frac{1}{2^k - 1} = \frac{x_{k-1}}{x_{k-1}+2}.$$
+		Letting $n=k+1$, we have
+		$$ x_{k+1} = \frac{x_k}{x_k + 2} = \frac{\frac{1}{2^k-1}}{\frac{1}{2^k - 1} + 2} . $$
+		Writing the denominator as
+		$$\frac{1+2(2^k-1)}{2^k-1} , $$
+		we obtain
+		\begin{equation*}
+		\begin{split}
+		x_{k+1} & = \Big( \frac{1}{2^k -1} \Big) \Big( \frac{2^k-1}{1+2(2^k-1)} \Big) \\
+		& = \frac{1}{1+2(2^k-1)} \\
+		& = \frac{1}{1 + 2^{k+1} - 2} \\
+		& = \frac{1}{2^{k+1} - 1}
+		\end{split}
+		\end{equation*}
+		So, the statement holds for $x_{k+1}$.
+		
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+\end{document}
