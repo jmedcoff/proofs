@@ -90,10 +90,42 @@
 		\end{split}
 		\end{equation*}
 		So, the statement holds for $x_{k+1}$.
-		
 	\end{proof}
 	
+	\noindent \textbf{Problem 3.} Find the equation of the set of all points twice as far from (0,1) as from (1,0).
 	
+	\noindent \textit{Solution.}
+		Assume the Euclidean metric. Then the distance between two points $(x,y)$ and $(x_0,y_0)$ is defined as
+		$$ d = \sqrt{(x-x_0)^2 + (y-y_0)^2} . $$
+		So, for each of the two points (0,1) and (1,0) we write the distance to a point $(x,y)$ as
+		\begin{equation*}
+		\begin{split}
+		d_{(0,1)} & = \sqrt{x^2 + (y-1)^2} , \\
+		d_{(1,0)} & = \sqrt{(x-1)^2 + y^2} .
+		\end{split}
+		\end{equation*}
+		
+		We would like the set of points $(x,y)$ twice as far from (0,1) as from (1,0). In other words,
+		$$ d_{(1,0)} = 2d_{(0,1)} . $$
+		Using the above formulas, we can write
+		\begin{equation*}
+		\begin{split}
+		\sqrt{(x-1)^2 + y^2} & = 2 \sqrt{x^2 + (y-1)^2} \\
+		(x-1)^2 + y^2 & = 4 (x^2 + (y-1)^2) \\
+		x^2 - 2x + 1 + y^2 & = 4x^2 + 4y^2 - 8y + 4 \\
+		\end{split}
+		\end{equation*}
+		Applying some algebraic simplification, we obtain
+		\begin{equation*}
+		\begin{split}
+		-2x & = 3x^2 + 3y^2 - 8y + 3 \\
+		0 & = 3x^2 + 3y^2 + 2x - 8y + 3 .
+		\end{split}
+		\end{equation*}
+		
+		So, those points $(x,y)$ that are solutions to 
+		$$0 = 3x^2 + 3y^2 + 2x - 8y + 3$$
+		are twice as far from (0,1) as from (1,0).
 	
 	
 	
