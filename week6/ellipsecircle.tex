@@ -1,0 +1,64 @@
+\documentclass[12pt]{amsart}
+
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{geometry}
+\geometry{a4paper}
+
+\newtheorem{thm}{Theorem}
+\newtheorem{prop}{Proposition}
+\newtheorem{lem}{Lemma}
+\newtheorem{cor}{Corollary}
+\newtheorem{rem}{Remark}
+\newtheorem{exa}{Example}
+\newtheorem{clm}{Claim}
+
+\newtheoremstyle{case}{}{}{}{}{}{:}{ }{}
+\theoremstyle{case}
+\newtheorem{case}{Case}
+
+\title{Circles and Ellipses}
+\author{Jason Medcoff}
+
+\begin{document}
+	\maketitle
+	
+	We know that the general formula for arc length of a parametric curve is given by
+	$$ p = \int_{c}^{d} \sqrt{ \Big( \frac{dx}{dt} \Big) ^2 + \Big( \frac{dy}{dt} \Big) ^2} dt . $$	
+	The given equation can be parameterized such that $x = a\cos\theta$ and $y = b\sin\theta$. In addition, finding the arc length in the first quadrant and then multiplying by four will give the total circumference. Then we have the circumference of the curve as
+	$$ p = 4 \int_{0}^{\frac{\pi}{2}} \sqrt{ a^2\sin^2\theta + b^2\cos^2\theta } d\theta $$
+	Noting that $\sin^2\theta = 1 - cos^2\theta$, we can write
+	$$ p = 4 \int_{0}^{\frac{\pi}{2}} \sqrt{ a^2(1 - cos^2\theta) + b^2\cos^2\theta } d\theta $$
+	and simplify to get
+	$$ p = 4 \int_{0}^{\frac{\pi}{2}} \sqrt{ a^2 + (b^2 - a^2)cos^2\theta } d\theta . $$
+	We let the eccentricity $\varepsilon$ be defined as
+	$$ \varepsilon = \frac{\sqrt{a^2-b^2}}{a} . $$
+	Now we can write the circumference as
+	$$ p = 4a \int_{0}^{\frac{\pi}{2}} \sqrt{ 1 - \varepsilon^2\cos^2\theta } d\theta . $$
+	
+	We know that the binomial series, a special Maclaurin series, gives
+	$$ (z+1)^\alpha = \sum_{k=0}^{\infty} \binom{\alpha}{k} z^k = 1 + \alpha z + \frac{\alpha(\alpha - 1)}{2!} z^2 + \dots $$
+	This series can be applied to the argument of the circumference integral with $\alpha = 1/2$ and $z = -\varepsilon^2\cos^2\theta$. Specifically, we have
+	$$ \sqrt{ 1 - \varepsilon^2\cos^2\theta } = 1 - \frac{\varepsilon^2\cos^2\theta}{2} - \sum_{k=2}^{\infty} \binom{1/2}{k} (\varepsilon^2 \cos^2\theta)^k $$
+	
+	Note that since $\varepsilon$ describes the eccentricity of the ellipse, its value must be strictly between 0 and 1. Also, $|\cos^2\theta| \leq 1$ for all $\theta$. So, the series converges.
+	
+	Returning to the circumference, we have
+	
+	\begin{equation*}
+	\begin{split}
+	p & = 4a \int_{0}^{\frac{\pi}{2}} \Bigg[ 1 - \frac{\varepsilon^2\cos^2\theta}{2} - \sum_{k=2}^{\infty} \binom{1/2}{k} z^k \Bigg] d\theta \\
+	& = 4a \int_{0}^{\frac{\pi}{2}} d\theta - 4a \int_{0}^{\frac{\pi}{2}} \frac{\varepsilon^2\cos^2\theta}{2} d\theta - 4a \int_{0}^{\frac{\pi}{2}} \sum_{k=2}^{\infty} \binom{1/2}{k} (\varepsilon^2 \cos^2\theta)^k
+	\end{split}
+	\end{equation*}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+\end{document}
