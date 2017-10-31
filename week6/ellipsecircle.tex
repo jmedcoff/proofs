@@ -24,6 +24,43 @@
 \begin{document}
 	\maketitle
 	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problem 1a %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\noindent \textbf{Problem 1a.} Find the perimeter of
+	$$ x^2 + y^2 = r^2 . $$
+	
+	We know the arc length formula for polar coordinates is
+	
+	$$ C = \int_{\alpha}^{\beta} \sqrt{ r^2 + \bigg( \frac{dr}{d\theta} \bigg)^2 } d\theta , $$
+	
+	and in this case we have a constant $r$. So the integral becomes
+	
+	$$ C = \int_{0}^{2\pi} \sqrt{ r^2 + 0^2 } d\theta = \int_{0}^{2\pi} r d\theta , $$
+	
+	which evaluates to
+	
+	$$ C = r(2\pi - 0) = 2\pi r . $$
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problem 1b %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\noindent \textbf{Problem 1b.} Find the area of
+	$$ x^2 + y^2 = r^2 . $$
+	
+	From above, we know that the perimeter is given by $C = 2\pi r$. We can use the shell method of integration to partition the circle into thin rings of radius $s$ and width $ds$. Then the area of each ring is simply $2\pi s ds$, and we have
+	
+	$$ A = \int_{0}^{r} 2\pi s ds . $$
+	
+	Integrating gives
+	
+	$$ A = 2\pi \frac{s^2}{2} \biggr\rvert^{r}_{0} = \pi r^2 - 0 = \pi r^2 . $$
+	$\newline$
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problem 2a %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\noindent \textbf{Problem 2a.} Find the perimeter of
+	$$ \frac{x^2}{a^2} + \frac{y^2}{b^2} = 1 . $$
+	
+	
 	We know that the general formula for arc length of a parametric curve is given by
 	$$ p = \int_{c}^{d} \sqrt{ \Big( \frac{dx}{dt} \Big) ^2 + \Big( \frac{dy}{dt} \Big) ^2} dt . $$	
 	The given equation can be parameterized such that $x = a\cos\theta$ and $y = b\sin\theta$. In addition, finding the arc length in the first quadrant and then multiplying by four will give the total circumference. Then we have the circumference of the curve as
@@ -49,16 +86,76 @@
 	\begin{equation*}
 	\begin{split}
 	p & = 4a \int_{0}^{\frac{\pi}{2}} \Bigg[ 1 - \frac{\varepsilon^2\cos^2\theta}{2} - \sum_{k=2}^{\infty} \binom{1/2}{k} z^k \Bigg] d\theta \\
-	& = 4a \int_{0}^{\frac{\pi}{2}} d\theta - 4a \int_{0}^{\frac{\pi}{2}} \frac{\varepsilon^2\cos^2\theta}{2} d\theta - 4a \int_{0}^{\frac{\pi}{2}} \sum_{k=2}^{\infty} \binom{1/2}{k} (\varepsilon^2 \cos^2\theta)^k
+	& = 4a \int_{0}^{\frac{\pi}{2}} d\theta - 4a \int_{0}^{\frac{\pi}{2}} \frac{\varepsilon^2\cos^2\theta}{2} d\theta - 4a \int_{0}^{\frac{\pi}{2}} \sum_{k=2}^{\infty} \binom{1/2}{k} (\varepsilon^2 \cos^2\theta)^k d\theta
 	\end{split}
 	\end{equation*}
 	
+	The first two terms are integrated easily. With regards to the integral of the summation, it is clear that the quantity must be finite, as we are calculating a perimeter. So we can apply Fubini's Theorem to exchange the integral and the summation to obtain
+	
+	$$ p = 4a \int_{0}^{\frac{\pi}{2}} d\theta - 4a \int_{0}^{\frac{\pi}{2}} \frac{\varepsilon^2\cos^2\theta}{2} d\theta - 4a \sum_{k=2}^{\infty} \int_{0}^{\frac{\pi}{2}} \binom{1/2}{k} (\varepsilon^2 \cos^2\theta)^k d\theta . $$
+	
+	Now we can rearrange the placement of terms, yielding a much nicer looking integral:
+	
+	$$ p = 4a \int_{0}^{\frac{\pi}{2}} d\theta - 4a \int_{0}^{\frac{\pi}{2}} \frac{\varepsilon^2\cos^2\theta}{2} d\theta - 
+	4a \sum_{k=2}^{\infty} \varepsilon^{2k} \binom{1/2}{k} \int_{0}^{\frac{\pi}{2}} \cos^{2k}\theta d\theta . $$
+	
+	Using Wolfram Alpha to assist with the last integral, we can evaluate the integrals to obtain
+	
+	$$ p = 2\pi a - 4a \frac{\pi}{4} \frac{\varepsilon^2}{2} - 4a \sum_{k=2}^{\infty} \varepsilon^{2k} \binom{1/2}{k} \frac{\pi}{2} \frac{1\cdot3\cdot5\cdots(2k-1)}{2\cdot4\cdot6\cdots2k} . $$
+	
+	The last fraction is obtained from Wallis's cosine formula. We can make the observation that
+	
+	$$ \binom{1/2}{k} = \frac{(-1)^{k+1} 1 \cdot 3 \cdot 5 \cdots (2k-5) \cdot (2k-3)}{k! 2^k} $$
+	
+	So we can write
 	
 	
 	
+	$$ p = 2\pi a - 4a \frac{\pi}{4} \frac{\varepsilon^2}{2} - 4a \sum_{k=2}^{\infty} \varepsilon^{2k} \frac{\pi}{2} \frac{[1\cdot3\cdot5\cdots(2k-3)]^2 (2k-1)}{(k!2^k)^2} .	$$
 	
+	Finally, we simplify to obtain
 	
+	$$ p = 2\pi a \bigg[ 1 - \frac{\varepsilon^2}{4} - \sum_{k=2}^{\infty} \varepsilon^{2k} \frac{[1\cdot3\cdot5\cdots(2k-3)]^2 (2k-1)}{(k!2^k)^2}\bigg] . $$
 	
+	In the case of a circle where $r = a = b$, eccentricity $\varepsilon = 0$ and it is clear from the equation that circumference collapses to $p = 2\pi r$.
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problem 2b %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\noindent \textbf{Problem 2b.} Find the area of 
+	$$ \frac{x^2}{a^2} + \frac{y^2}{b^2} = 1 . $$
+	
+	Note that we can obtain the total area by multiplying the area in the first quadrant by four. 
+	Rewriting the equation in terms of $y$, we have
+	
+	$$ y = b \sqrt{1 - \frac{x^2}{a^2}} $$
+	
+	and we would like to evaluate
+	
+	$$ A = 4\int_{0}^{\frac{\pi}{2}} y dx $$
+	
+	which we can write as
+	
+	$$ A = 4b \int_{0}^{\frac{\pi}{2}} \sqrt{1 - \frac{x^2}{a^2}} dx . $$
+	
+	Let $x = a\sin\theta$. Then we have
+	
+	$$ \frac{dx}{d\theta} = a\cos\theta $$
+	
+	and we can substitute into the integral to obtain
+	
+	$$ A = 4ab \int_{0}^{\frac{\pi}{2}} \sqrt{1 - \sin^2\theta} \cos\theta d\theta . $$
+	
+	We observe that since 
+	
+	$$1 - \sin^2\theta = cos^2\theta$$
+	
+	we can write this as
+	
+	$$ A = 4ab \int_{0}^{\frac{\pi}{2}} \sqrt{\cos^2\theta} \cos\theta d\theta = 4ab \int_{0}^{\frac{\pi}{2}} \cos^2\theta d\theta = 4ab \int_{0}^{\frac{\pi}{2}} \frac{1+\cos2\theta}{2} d\theta $$
+	
+	and finally integrate, yielding
+	
+	$$ A = 4ab \frac{1}{2}(\theta+\sin\theta\cos\theta) \biggr\rvert_{0}^{\frac{\pi}{2}} = 2ab(\frac{\pi}{2} - 0) = \pi ab . $$
 	
 	
 \end{document}
