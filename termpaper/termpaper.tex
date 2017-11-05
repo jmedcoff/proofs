@@ -1,0 +1,105 @@
+\documentclass[12pt]{amsart}
+
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{geometry}
+\geometry{a4paper}
+
+\newtheorem{thm}{Theorem}
+\newtheorem{prop}{Proposition}
+\newtheorem{lem}{Lemma}
+\newtheorem{cor}{Corollary}
+\newtheorem{rem}{Remark}
+\newtheorem{exa}{Example}
+\newtheorem{clm}{Claim}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\newtheoremstyle{case}{}{}{}{}{}{:}{ }{}
+\theoremstyle{case}
+\newtheorem{case}{Case}
+
+\title{Hilbert's 10\textsuperscript{th} Problem}
+\author{Jason Medcoff}
+
+\begin{document}
+	\maketitle
+	
+	% TODO: Abstract goes here
+	
+	
+	\section{Diophantine Equations and General Satisfiability}
+	
+	At the turn of the twentieth century, German mathematician David Hilbert gave a lecture to the International Congress of Mathematicians in Paris, France. The paper outlined 23 unsolved problems. The tenth problem asks about Diophantine equations:
+	\begin{quotation}
+		``Given a Diophantine equation with any number of unknown quantities and with rational integral numerical coefficients: To devise a process according to which it can be determined in a finite number of operations whether the equation is solvable in rational integers."
+	\end{quotation}
+	By ``rational integers", we understand that the numbers in question belong to $\mathbb{Z}$. A process that makes a decision in a finite number of operations is informally the definition of an algorithm in modern mathematical vernacular. So, the problem statement asks for an algorithm that takes as an input some Diophantine equation, and outputs \textsc{yes} if there exists a solution in integers, and \textsc{no} otherwise. Note that the problem statement asks nothing about the solutions themselves, but only about their existence.
+	
+	A Diophantine equation is a polynomial with integer coefficients of the form
+	\begin{equation} \label{dio1}
+	D(x_1, x_2, \dots, x_n) = 0
+	\end{equation} 
+	such that only integral solutions are considered; some $\langle x_1, x_2, \dots, x_n \rangle$ satisfying \eqref{dio1} must also satisfy
+	$$\langle x_1, x_2, \dots, x_n \rangle \in \mathbb{Z}^n $$
+	to be considered a solution to \eqref{dio1}.
+	
+	% TODO: fill in the rest of the intro
+	
+	\section{What it means to be Diophantine}
+	
+	From Diophantine equations, we can devise new terminology to associate with these equations other mathematical objects, namely sets and functions.	
+	
+	\begin{definition}
+		A set $S$ is said to be Diophantine if there exists a polynomial $$D(x_1, \dots, x_n, y_1, \dots, y_m)$$ with integer coefficients where an n-tuple $\langle x_1, \dots, x_n \rangle$ belongs to $S$ if and only if there exists $y_1, \dots, y_m$ such that 
+		$$ D(x_1, \dots, x_n, y_1, \dots, y_m) = 0 . $$
+		Equivalently, we can say
+		$$ \langle x_1, \dots, x_n \rangle \in S \iff \exists y_1, \dots, y_m : D(x_1, \dots, x_n, y_1, \dots, y_m) = 0 . $$
+	\end{definition}
+	Now, the notion of Diophantine equations has been extended to sets as well. Intuitively, if we have a Diophantine equation with some parameters, the parameters belong to a Diophantine set if the equation is satisfiable under them.
+
+	As an example, consider the set 
+	$$S = \{ \langle x_1, x_2, x_3 \rangle : x_3 = x_1 + x_2; x_1, x_2 \in \mathbb{N}\} . $$
+	We can say with certainty that this set is Diophantine. By the definition, $\langle x_1, x_2, x_3 \rangle$ is in $S$ if and only if there exist $y_1, y_2, y_3$ that satisfy $ D(x_1, \dots, x_n, y_1, \dots, y_m) = 0$ for some polynomial $D$ with integer coefficients. It is easy to show that if we take $D$ to be
+	$$x_1y_1 + x_2y_2 - x_3y_3 ,$$
+	the above equation is satisfied for every $\langle x_1, x_2, x_3 \rangle$ in $S$.	
+	
+	It is also possible to extend the notion of ``being Diophantine" to functions.
+	
+	\begin{definition}
+		A function $f$ is considered Diophantine if the set of solutions to the function is Diophantine; namely, $f$ is Diophantine if the set
+		$$\{ \langle x_1, \dots, x_n, y \rangle : y = f(x_1, \dots, x_n) \}$$
+		is Diophantine.
+	\end{definition}
+	
+	As a simple example, consider $f: \mathbb{N} \rightarrow \mathbb{N}$ such that
+	$$ f(n) = n(n-1)(n-2)\dots(2)(1) = n! $$
+	This function is Diophantine because the set of solutions to $m = f(n)$ is Diophantine. Specifically, we have
+	$$ \{ \langle m, n \rangle : m = n(n-1)(n-2)\dots(2)(1)\} $$
+	and we know that for every $n$, $m$ is a natural number, since the product of natural numbers is a natural number. We can construct a polynomial equation
+	$$ my_1 - ny_2 = 0 $$
+	which is satisfied for any $y_1$, $y_2$ with $m$ and $n$ as described by the above set.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+\end{document}
