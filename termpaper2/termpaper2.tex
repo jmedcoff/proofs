@@ -1,10 +1,26 @@
 \documentclass{amsart}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{amsthm}
 \usepackage{geometry}
 \geometry{a4paper}
 
-\title{Primality Checking for the Computer Scientist}
+\newtheorem{thm}{Theorem}
+\newtheorem{prop}{Proposition}
+\newtheorem{lem}{Lemma}
+\newtheorem{cor}{Corollary}
+\newtheorem{rem}{Remark}
+\newtheorem{exa}{Example}
+\newtheorem{clm}{Claim}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\newtheoremstyle{case}{}{}{}{}{}{:}{ }{}
+\theoremstyle{case}
+\newtheorem{case}{Case}
+
+\title{Prime Generation Draft}
 \author{Jason Medcoff}
 \date{}
 
@@ -13,12 +29,64 @@
     
     % TODO: abstract
     
+    % Outline
+    % Intro: Review of some properties of primes
+    %        fundamental theorem of arith
+    %        factors less than the square root
+    %        
+    % Body:  The Sieve of Eratosthenes
+    %        proof of the algo: correctness, time complexity
+    %        code, examples
+    %        Potential Improvement
+    %        wheel factorization? (maybe)
+    % Segmented sieve and/or sieve of Sundaram
+    %
+    % Conclusion
     
+    
+    
+    \section{Introduction}
+    
+%    By the Fundamental Theorem of Arithmetic, the prime numbers are demonstrated to be the key ingredients to producing the set of integers. Despite their significance, we know very little about where to find primes within the integers. Perhaps the biggest unsolved problem in mathematics today, the Riemann Hypothesis, makes a suggestion about the asymptotic distribution of the primes.
 
+	Recall the following definition.
+	\begin{definition}
+		A natural number $p>1$ is said to be prime if its only positive divisors are 1 and $p$. If $p$ is not prime, it is said to be composite.
+	\end{definition}
+	
+	One of the most important theorems with regards to the primes and integers follows.
+	\begin{thm}[Fundamental Theorem of Arithmetic]\label{arith}
+		If $n > 1$ is a natural number, it can be written as a product of primes unique up to the order of the factors.
+	\end{thm}
+	\begin{proof}
+		Suppose there exists an integer $n>1$ such that $n$ cannot be written as a product of primes. By the well-ordering principle, we know that there must be a smallest $n$ satisfying this. Write $n$ as a product, $n = xy$, with $x>1$ and $y<n$. Since $n$ is the smallest positive integer that cannot be written as a product of primes, and $x$ and $y$ must be less than $n$, we can write $x$ and $y$ as products of prime factors. Then $n$ can be written as a product of primes, which contradicts the above assumption. So, every integer $n>1$ can be written as a product of primes.
+		
+		Next, suppose an integer $n>1$ has two prime factorizations, such that
+		$$ n = j_1 \cdots j_s = k_1 \cdots k_t $$
+		where all $j_i$ and $k_i$ are prime. By the well-ordering principle, we know that there must be a smallest $n$ satisfying this as well. Then $j_1 | n = k_1 \cdots k_t$ and since $j_1$ is prime, it must divide $k_i$ for some $i$. But we know that $k_i$ is prime too, so it must be that $j_1 = k_i$. Then we relabel $k_i$ as $k_1$ for simplicity, and we now cancel $j_1$ to obtain
+		$$ j_2 \cdots j_s = k_2 \cdots k_t . $$
+		Since $n$ is the smallest positive integer that has a non-unique prime factorization, and $ j_2 \cdots j_s = k_2 \cdots k_t < n $ is a product of primes, we arrive at a contradiction. Then there cannot exist an integer $n>1$ with two different factorizations.
+	\end{proof}
 
-
-
-
+	An immediate question resulting from this theorem is how we can best obtain the prime factors of arbitrary numbers. This question is still open in number theory and theoretical computer science; no classical algorithm is known that can factor a number in polynomial time on the number of digits. The difficulty of factoring very large numbers (on the order of thousands of digits) led to the creation of the RSA cryptosystem.
+	
+	Given some number $n$, we may want to find out whether $n$ is prime or composite. Naively, we can simply enumerate the natural numbers starting at 2, and check for divisibility, stopping when we reach $n$. However, in the interest of saving time, we can apply a result that will cut down the time spent checking divisors.
+	\begin{lem}\label{sqrt}
+		If $n$ is composite, at least one of its factors lies in $[2, \sqrt{n}]$.
+	\end{lem}
+	\begin{proof}
+		Let $\sqrt{n} = m$. Then we can write $n$ as
+		$$ n = m \cdot m = a \cdot b . $$
+		Consider $a$. One of the following must be true: $a>m$, $a<m$, or $a=m$. In the first case, $b$ must be less than $m$; in the second case, $b$ will be greater than $m$. If $a=m$, clearly $b=m$. Therefore, if we search the integers up to $m$, we will find at least one factor of $n$.
+	\end{proof}
+	
+	We can combine this result with the fundamental theorem of arithmetic, and easily show the following.
+	\begin{cor}
+		Let $n>2$ be an integer. If $n$ does not have a prime factor in the range $[2, \sqrt{n}]$, it is prime.
+	\end{cor}
+	This is a combination of the contrapositive of lemma \ref{sqrt} with theorem \ref{arith}. So now, we have a way to check for primality of small numbers. For some $n$, we need only check divisibility by primes in $[2, \sqrt{n}]$. This algorithm, called trial division, proves very slow on larger numbers. 
+	
+	% TODO: Prove asymptotic time complexity of trial division
 
 
 

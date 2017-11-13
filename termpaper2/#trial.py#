@@ -1,0 +1,7 @@
+import math.ceil
+
+def is_prime_td(n):
+    for i in range(2, ceil(sqrt(n))):
+        if n % i == 0:
+            return True
+    return False
