@@ -2,7 +2,9 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{listings}
 \usepackage{geometry}
+\usepackage{float}
 \geometry{a4paper}
 
 \newtheorem{thm}{Theorem}
@@ -75,18 +77,69 @@
 		If $n$ is composite, at least one of its factors lies in $[2, \sqrt{n}]$.
 	\end{lem}
 	\begin{proof}
-		Let $\sqrt{n} = m$. Then we can write $n$ as
+		Let $m = \sqrt{n}$. Then we can write $n$ as
 		$$ n = m \cdot m = a \cdot b . $$
 		Consider $a$. One of the following must be true: $a>m$, $a<m$, or $a=m$. In the first case, $b$ must be less than $m$; in the second case, $b$ will be greater than $m$. If $a=m$, clearly $b=m$. Therefore, if we search the integers up to $m$, we will find at least one factor of $n$.
 	\end{proof}
 	
 	We can combine this result with the fundamental theorem of arithmetic, and easily show the following.
-	\begin{cor}
-		Let $n>2$ be an integer. If $n$ does not have a prime factor in the range $[2, \sqrt{n}]$, it is prime.
+	\begin{cor}\label{corprime}
+		Let $n>1$ be an integer. If $n$ does not have a prime factor in the range $[2, \sqrt{n}]$, it is prime.
 	\end{cor}
-	This is a combination of the contrapositive of lemma \ref{sqrt} with theorem \ref{arith}. So now, we have a way to check for primality of small numbers. For some $n$, we need only check divisibility by primes in $[2, \sqrt{n}]$. This algorithm, called trial division, proves very slow on larger numbers. 
+	This is a combination of the contrapositive of lemma \ref{sqrt} with theorem \ref{arith}. So now, we have a way to check for primality of small numbers. For some $n$, we need only check divisibility by primes in $[2, \sqrt{n}]$. This algorithm, called trial division, is shown to be very slow on larger numbers. 
 	
 	% TODO: Prove asymptotic time complexity of trial division
+	
+	
+	\section{Generating Primes with the Sieve of Eratosthenes}
+	
+	The Sieve of Eratosthenes is a process for generating primes up to some positive integer $n$. Roughly speaking, the process is to cross off the multiples of the numbers up to the square root of $n$. Those numbers that remain are the primes up to $n$.
+	
+	Consider the following algorithm.
+	
+	\begin{figure}[H]\caption{Sieve of Eratosthenes}
+		\begin{lstlisting}[language=Python]
+		def eratosthenes(n):
+		    composites = set()
+		    for i in range(2, n+1):
+		        if i not in composites:
+		            yield i
+		            composites.update(range(i**2, n+1, i))
+		\end{lstlisting}
+	\end{figure}
+	
+	\begin{thm}
+		The algorithm \texttt{eratosthenes} produces the prime numbers in the range $2, n$.
+	\end{thm}
+	\begin{proof}
+		We know the algorithm must terminate because its loop bounds are finite.
+		The algorithm's correctness is easy to see based on the use of \texttt{composites}. The loop invariant here is that the set \texttt{composites} contains all composite numbers between 2 and $i$; this holds for every iteration, where we yield $i$ if it is not composite, then add multiples of $i$ from $i^2$ to $n$ to the \texttt{composites} set. At the end of the last loop, every prime has been yielded in the interval $[2, n]$.
+	\end{proof}
+
+	Informally speaking, we are using the \texttt{composites} set to ``mark" composite numbers in the range, then returning along the way those numbers which are not marked. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
