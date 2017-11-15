@@ -108,15 +108,43 @@
 		\end{lstlisting}
 	\end{figure}
 	
+	The python code above utilizes the ``set" data structure; this is suitable for two reasons. First, since we are only considering one list of numbers 2 to $n$, every element we are considering is unique, suggesting use of a set. Second, the code performs many membership checks. For lists, checking membership in a list of length $m$ is $O(m)$ in the average case, while for sets this check is $O(1)$.
+	
 	\begin{thm}
 		The algorithm \texttt{eratosthenes} produces the prime numbers in the range $2, n$.
 	\end{thm}
 	\begin{proof}
-		We know the algorithm must terminate because its loop bounds are finite.
 		The algorithm's correctness is easy to see based on the use of \texttt{composites}. The loop invariant here is that the set \texttt{composites} contains all composite numbers between 2 and $i$; this holds for every iteration, where we yield $i$ if it is not composite, then add multiples of $i$ from $i^2$ to $n$ to the \texttt{composites} set. At the end of the last loop, every prime has been yielded in the interval $[2, n]$.
 	\end{proof}
 
-	Informally speaking, we are using the \texttt{composites} set to ``mark" composite numbers in the range, then returning along the way those numbers which are not marked. 
+	Informally speaking, we are using the \texttt{composites} set to ``mark" composite numbers in the range, then returning along the way those numbers which are not marked. We know that we can start at $i^2$, because all of the multiples of $i$ up to $i^2$ have already been marked off.
+	
+	\begin{lem}
+		For every $i$ as in the algorithm above, every multiple of $i$ up to $i^2$ has already been collected into \texttt{composites}.
+	\end{lem}
+	\begin{proof}
+		We will prove this by induction. Consider first the case of $i=2$; add it to the set \texttt{composites}. Every multiple of 2 less than $2^2 = 4$ has already been added to the set; 2 is the only such number. Then we add every multiple of 2 greater than 4 to the set, and the set contains all multiples of 2.
+		Now suppose the conjecture holds for some $i=k$. Then for $i=k+1$, we consider the multiples $a(k+1)$ for some positive integer $a<k+1$. For $a=2$, we have $2k+2$, which is a multiple of 2. For $a=3$, we have a multiple of 3, and so on. For $a=k$, we have a multiple of $k$, which is already taken care of by the induction hypothesis. So every $a(k+1)$ gives a multiple of $a$. Therefore, every multiple of $i$ up to $i^2$ has been collected into \texttt{composites}.
+	\end{proof}
+	
+	This result saves us from a lot of unnecessary set membership checking. We will now give the running time a rigorous treatment.
+	
+	\begin{thm}
+		The asymptotic running time of \texttt{eratosthenes} is $O(n\log\log n)$, where $n$ is the upper limit on the sieving range.
+	\end{thm}
+	\begin{proof}
+		The noteworthy work done by the algorithm is identifying the composites; we will count these operations. For each of the $n$ iterations, we are trimming the multiples of the primes up to $n$ from the list. In particular, for $i=2$, we perform roughly $n/2$ trims, for $i=3$ we perform $n/3$, etc.\ We can write this formulation as
+		$$ \sum_{p\leq n} \frac{n}{p} = n \sum_{p \leq n} \frac{1}{p} . $$
+		Mertens's second theorem shows that
+		$$ \lim\limits_{n\rightarrow\infty} \left[ \sum_{p \leq n} \frac{1}{p} - \log\log n - M \right] = 0 $$
+		where $M$ is the Mertens constant, and rearranging terms, we observe
+		$$ \lim\limits_{n\rightarrow\infty} \sum_{p \leq n} \frac{1}{p} = \lim\limits_{n\rightarrow\infty} \left[ \log\log n - M \right] . $$
+		We multiply by $n$ to obtain
+		$$ \lim\limits_{n\rightarrow\infty} n \sum_{p \leq n} \frac{1}{p} = \lim\limits_{n\rightarrow\infty} n \left[ \log\log n - M \right] $$
+		and so the asymptotic running time as written above is
+		$$ n \log \log n - nM = O(n\log\log n). $$
+	\end{proof}
+	
 
 
 
