@@ -25,13 +25,14 @@
 
 \title{Prime Generation Draft}
 \author{Jason Medcoff}
-\date{}
+\date{November 15, 2017}
 
 \begin{document}
     \maketitle
     
     \begin{abstract}
-    	The generation of large primes has been of great importance to modern cryptosystems. In this paper we review a widely known and deceptively efficient method for generating prime numbers: the Sieve of Eratosthenes. We build up to the algorithm with a review of some basic properties of primes and composites, and develop some results that make the sieve more efficient in practice.
+    	The generation of large primes has been of great importance to modern computing. In this paper we review a widely known and deceptively efficient method for generating prime numbers: the Sieve of Eratosthenes. We build up to the algorithm with a review of some basic properties of primes and composites, and develop some results that make the sieve more efficient in practice.
+    	Emphasis is placed on the mathematics behind the algorithm, with the intention of educating the student of computer science student about the significance of its time complexity.
     \end{abstract}
     
     % Outline
@@ -51,10 +52,20 @@
     
     \section{Introduction}
     
+    Today, the generation of prime numbers is a task generally associated with hashing algorithms, public key cryptography, and searching for factors of large numbers. Most modern algorithms designed to generate primes are derived from a process devised by Eratosthenes of Cyrene in Ancient Greece. In this paper, we explore the motivating ideas about prime numbers that lead to the intuitive derivation of the Sieve of Eratosthenes, beginning with some review of elementary number theory concerning primes and composites.
+    
+    Eratosthenes of Cyrene was a scholar; he spent his life working in the areas of geography and astronomy, including a calculation of the earth's circumference with remarkable accuracy. Among his achievements, he proposed a process to find the primes up to a given number $n$. One need only list the numbers from 2 to $n$, and cross out the multiples of numbers beginning at 2. Those that remain are not composite, and therefore must be prime.
+    
+    The algorithm is decidedly easy to understand, and similarly easy to implement in one's favorite programming language. In fact, the careful eye may notice potential areas of improvement in the interest of time and space. It is perhaps not surprising, then, that most modern prime generation algorithms are derived from the fundamental prime sieve due to Eratosthenes.
+    
+    \textit{Basics.} We begin by reviewing the essential ideas of primes and composites. The Fundamental Theorem of Arithmetic describes that all numbers have a factorization of primes only, unique up to the ordering of the factors. In addition, it can be shown that at least one of a number $n$'s factors must lie in the range $[2, \sqrt{n}]$. Combining these results, we can show that for any number $n$, a prime factor in this range implies that $n$ is composite. From this, it is easily seen that to generate the primes up to $n$, we need only cross out the multiples of numbers less than $\sqrt{n}$.
+    
+    \textit{Algorithm.} Following this important result, we have all we need to implement a simple version of the Sieve of Eratosthenes, at six lines of code. It is shown by proof of correctness that the algorithm produces all primes up to $n$. By applying Mertens's Second Theorem, we can derive the sieve's asymptotic running time. Next, a time test is performed, demonstrating the running time in practice, and we see that the asymptotic running time bounds the experimental trials.
+    
+    \textit{Improvements.} Next, we observe areas of potential improvement of the algorithm, verify the ideas for improvement, and modify the algorithm. 
     
     
-    
-    \section{Some Properties of Primes and Composites}
+    \section{Some Basics of Primes and Composites}
     
 %    By the Fundamental Theorem of Arithmetic, the prime numbers are demonstrated to be the key ingredients to producing the set of integers. Despite their significance, we know very little about where to find primes within the integers. Perhaps the biggest unsolved problem in mathematics today, the Riemann Hypothesis, makes a suggestion about the asymptotic distribution of the primes.
 
@@ -134,7 +145,7 @@
 		Now suppose the conjecture holds for some $i=k$. Then for $i=k+1$, we consider the multiples $a(k+1)$ for some positive integer $a<k+1$. For $a=2$, we have $2k+2$, which is a multiple of 2. For $a=3$, we have a multiple of 3, and so on. For $a=k$, we have a multiple of $k$, which is already taken care of by the induction hypothesis. So every $a(k+1)$ gives a multiple of $a$. Therefore, every multiple of $i$ up to $i^2$ has been collected into \texttt{composites}.
 	\end{proof}
 	
-	This result saves us from a lot of unnecessary set membership checking. We will now give the running time a rigorous treatment.
+	This result saves us from a lot of unnecessary set membership checking. In fact, we can recognize that this lemma follows from the earlier corollary \ref{corprime}. It is clear that if we start considering multiples of $i$ at $i^2$, when $i = \sqrt{n}$ we have reached the upper bound of sieving and the remaining numbers are the primes. We will now give the running time a rigorous treatment.
 	
 	\begin{thm}\label{runtimethm}
 		The asymptotic running time of \texttt{eratosthenes} is $O(n\log\log n)$, where $n$ is the upper limit on the sieving range.
