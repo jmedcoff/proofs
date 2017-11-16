@@ -30,7 +30,9 @@
 \begin{document}
     \maketitle
     
-    % TODO: abstract
+    \begin{abstract}
+    	The generation of large primes has been of great importance to modern cryptosystems. In this paper we review a widely known and deceptively efficient method for generating prime numbers: the Sieve of Eratosthenes. We build up to the algorithm with a review of some basic properties of primes and composites, and develop some results that make the sieve more efficient in practice.
+    \end{abstract}
     
     % Outline
     % Intro: Review of some properties of primes
@@ -47,8 +49,12 @@
     % Conclusion
     
     
-    
     \section{Introduction}
+    
+    
+    
+    
+    \section{Some Properties of Primes and Composites}
     
 %    By the Fundamental Theorem of Arithmetic, the prime numbers are demonstrated to be the key ingredients to producing the set of integers. Despite their significance, we know very little about where to find primes within the integers. Perhaps the biggest unsolved problem in mathematics today, the Riemann Hypothesis, makes a suggestion about the asymptotic distribution of the primes.
 
@@ -148,7 +154,6 @@
 	
 	We can concretely demonstrate the running time by writing a test. We run the algorithm some number of times, and calculate the average time taken. After performing this test for several different input sizes, we can construct a plot of running time against input size. Figure \ref{runtime1} displays the running time experiment with an average of 50 trials, on sieve sizes from 1000 to 100000. The function $f(x)$ is the result of theorem \ref{runtimethm}, multiplied by a constant. Namely, we use
 	$$ f(x) = \frac{x \log \log x}{2443470.5} . $$
-	The plot is shown in figure \ref{runtime1}.
 	
 	\begin{figure}\caption{Asymptotic Running Time of \texttt{eratosthenes}}
 		\label{runtime1}
