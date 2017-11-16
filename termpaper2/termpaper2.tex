@@ -5,6 +5,7 @@
 \usepackage{listings}
 \usepackage{geometry}
 \usepackage{float}
+\usepackage{graphicx}
 \geometry{a4paper}
 
 \newtheorem{thm}{Theorem}
@@ -114,7 +115,7 @@
 		The algorithm \texttt{eratosthenes} produces the prime numbers in the range $2, n$.
 	\end{thm}
 	\begin{proof}
-		The algorithm's correctness is easy to see based on the use of \texttt{composites}. The loop invariant here is that the set \texttt{composites} contains all composite numbers between 2 and $i$; this holds for every iteration, where we yield $i$ if it is not composite, then add multiples of $i$ from $i^2$ to $n$ to the \texttt{composites} set. At the end of the last loop, every prime has been yielded in the interval $[2, n]$.
+		The algorithm's correctness is easy to see based on the use of \texttt{composites}. The loop invariant here is that the set \texttt{composites} contains all composite numbers between 2 and $i$; this holds for every iteration, where we yield $i$ if it is not composite, then add multiples of $i$ from $i^2$ to $n$ to the \texttt{composites} set. At the end of the last loop, every prime has been yielded in the interval $[2, n]$. Note that in addition, the algorithm is totally correct; it terminates after a finite number of steps because its loop bounds are finite.
 	\end{proof}
 
 	Informally speaking, we are using the \texttt{composites} set to ``mark" composite numbers in the range, then returning along the way those numbers which are not marked. We know that we can start at $i^2$, because all of the multiples of $i$ up to $i^2$ have already been marked off.
@@ -129,7 +130,7 @@
 	
 	This result saves us from a lot of unnecessary set membership checking. We will now give the running time a rigorous treatment.
 	
-	\begin{thm}
+	\begin{thm}\label{runtimethm}
 		The asymptotic running time of \texttt{eratosthenes} is $O(n\log\log n)$, where $n$ is the upper limit on the sieving range.
 	\end{thm}
 	\begin{proof}
@@ -145,6 +146,16 @@
 		$$ n \log \log n - nM = O(n\log\log n). $$
 	\end{proof}
 	
+	We can concretely demonstrate the running time by writing a test. We run the algorithm some number of times, and calculate the average time taken. After performing this test for several different input sizes, we can construct a plot of running time against input size. Figure \ref{runtime1} displays the running time experiment with an average of 50 trials, on sieve sizes from 1000 to 100000. The function $f(x)$ is the result of theorem \ref{runtimethm}, multiplied by a constant. Namely, we use
+	$$ f(x) = \frac{x \log \log x}{2443470.5} . $$
+	The plot is shown in figure \ref{runtime1}.
+	
+	\begin{figure}\caption{Asymptotic Running Time of \texttt{eratosthenes}}
+		\label{runtime1}
+		\includegraphics[scale=0.5]{erat3.png}
+	\end{figure}
+	
+	It is evident from figure \ref{runtime1} that the function derived from the running time analysis bounds the experimental running time.
 
 
 
