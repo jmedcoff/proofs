@@ -31,7 +31,7 @@
     \maketitle
     
     \begin{abstract}
-    	The generation of large primes has been of great importance to modern computing. In this paper we review a widely known and deceptively efficient method for generating prime numbers: the Sieve of Eratosthenes. We build up to the algorithm with a review of some basic properties of primes and composites, and develop some results that make the sieve more efficient in practice.
+    	The generation of large primes has been of great importance to modern cryptography. In this paper we review a widely known and deceptively efficient method for generating prime numbers: the Sieve of Eratosthenes. We build up to the algorithm with a review of some basic properties of primes and composites, and develop some results that make the sieve more efficient in practice.
     	Emphasis is placed on the mathematics behind the algorithm, with the intention of educating the student of computer science student about the significance of its time complexity.
     \end{abstract}
     
@@ -54,20 +54,22 @@
     
     Today, the generation of prime numbers is a task generally associated with hashing algorithms, public key cryptography, and searching for factors of large numbers. Most modern algorithms designed to generate primes are derived from a process devised by Eratosthenes of Cyrene in Ancient Greece. In this paper, we explore the motivating ideas about prime numbers that lead to the intuitive derivation of the Sieve of Eratosthenes, beginning with some review of elementary number theory concerning primes and composites.
     
-    Eratosthenes of Cyrene was a scholar; he spent his life working in the areas of geography and astronomy, including a calculation of the earth's circumference with remarkable accuracy. Among his achievements, he proposed a process to find the primes up to a given number $n$. One need only list the numbers from 2 to $n$, and cross out the multiples of numbers beginning at 2. Those that remain are not composite, and therefore must be prime.
+%    Eratosthenes of Cyrene was a scholar; he spent his life working in the areas of geography and astronomy, including a calculation of the earth's circumference with remarkable accuracy. Among his achievements, he proposed a process to find the primes up to a given number $n$. One need only list the numbers from 2 to $n$, and cross out the multiples of numbers beginning at 2. Those that remain are not composite, and therefore must be prime.
     
     The algorithm is decidedly easy to understand, and similarly easy to implement in one's favorite programming language. In fact, the careful eye may notice potential areas of improvement in the interest of time and space. It is perhaps not surprising, then, that most modern prime generation algorithms are derived from the fundamental prime sieve due to Eratosthenes.
     
-    \textit{Basics.} We begin by reviewing the essential ideas of primes and composites. The Fundamental Theorem of Arithmetic describes that all numbers have a factorization of primes only, unique up to the ordering of the factors. In addition, it can be shown that at least one of a number $n$'s factors must lie in the range $[2, \sqrt{n}]$. Combining these results, we can show that for any number $n$, a prime factor in this range implies that $n$ is composite. From this, it is easily seen that to generate the primes up to $n$, we need only cross out the multiples of numbers less than $\sqrt{n}$.
+    We begin by reviewing the essential ideas of primes and composites. The Fundamental Theorem of Arithmetic describes that all numbers have a factorization of primes only, unique up to the ordering of the factors. In addition, it can be shown that at least one of a number $n$'s factors must lie in the range $[2, \sqrt{n}]$. Combining these results, we can show that for any number $n$, a prime factor in this range implies that $n$ is composite. From this, it is easily seen that to generate the primes up to $n$, we need only cross out the multiples of numbers less than $\sqrt{n}$.
     
-    \textit{Algorithm.} Following this important result, we have all we need to implement a simple version of the Sieve of Eratosthenes, at six lines of code. It is shown by proof of correctness that the algorithm produces all primes up to $n$. By applying Mertens's Second Theorem, we can derive the sieve's asymptotic running time. Next, a time test is performed, demonstrating the running time in practice, and we see that the asymptotic running time bounds the experimental trials.
+    Following this important result, we have all we need to implement a simple version of the Sieve of Eratosthenes, at six lines of code. It is shown by proof of correctness that the algorithm produces all primes up to $n$. By applying Mertens's Second Theorem, we can derive the sieve's asymptotic running time. Next, a time test is performed, demonstrating the running time in practice, and we see that the asymptotic running time bounds the experimental trials.
     
-    \textit{Improvements.} Next, we observe areas of potential improvement of the algorithm, verify the ideas for improvement, and modify the algorithm. 
+    Next, we observe areas of potential improvement of the algorithm, verify the ideas for improvement, and modify the algorithm. 
     
     
     \section{Some Basics of Primes and Composites}
     
 %    By the Fundamental Theorem of Arithmetic, the prime numbers are demonstrated to be the key ingredients to producing the set of integers. Despite their significance, we know very little about where to find primes within the integers. Perhaps the biggest unsolved problem in mathematics today, the Riemann Hypothesis, makes a suggestion about the asymptotic distribution of the primes.
+	
+	Understanding of the prime number sieve depends upon an understanding of some important properties of prime numbers. The ideas of checking up to the square root of a number for factors and unique factorizations of composites are developed in this section. We begin with familiar definitions, and then move into groundwork that will allow the correctness of the sieve to be shown.
 
 	Recall the following definition.
 	\begin{definition}
@@ -76,7 +78,7 @@
 	
 	One of the most important theorems with regards to the primes and integers follows.
 	\begin{thm}[Fundamental Theorem of Arithmetic]\label{arith}
-		If $n > 1$ is a natural number, it can be written as a product of primes unique up to the order of the factors.
+		If $n > 1$ is a natural number, it can be written as a product of powers of primes unique up to the order of the factors.
 	\end{thm}
 	\begin{proof}
 		Suppose there exists an integer $n>1$ such that $n$ cannot be written as a product of primes. By the well-ordering principle, we know that there must be a smallest $n$ satisfying this. Write $n$ as a product, $n = xy$, with $x>1$ and $y<n$. Since $n$ is the smallest positive integer that cannot be written as a product of primes, and $x$ and $y$ must be less than $n$, we can write $x$ and $y$ as products of prime factors. Then $n$ can be written as a product of primes, which contradicts the above assumption. So, every integer $n>1$ can be written as a product of primes.
@@ -117,7 +119,7 @@
 	
 	\begin{figure}[H]\caption{Sieve of Eratosthenes}
 		\begin{lstlisting}[language=Python]
-		def eratosthenes(n):
+		def Eratosthenes(n):
 		    composites = set()
 		    for i in range(2, n+1):
 		        if i not in composites:
@@ -129,7 +131,7 @@
 	The python code above utilizes the ``set" data structure; this is suitable for two reasons. First, since we are only considering one list of numbers 2 to $n$, every element we are considering is unique, suggesting use of a set. Second, the code performs many membership checks. For lists, checking membership in a list of length $m$ is $O(m)$ in the average case, while for sets this check is $O(1)$.
 	
 	\begin{thm}
-		The algorithm \texttt{eratosthenes} produces the prime numbers in the range $2, n$.
+		The algorithm \texttt{Eratosthenes} produces the prime numbers in the range $2, n$.
 	\end{thm}
 	\begin{proof}
 		The algorithm's correctness is easy to see based on the use of \texttt{composites}. The loop invariant here is that the set \texttt{composites} contains all composite numbers between 2 and $i$; this holds for every iteration, where we yield $i$ if it is not composite, then add multiples of $i$ from $i^2$ to $n$ to the \texttt{composites} set. At the end of the last loop, every prime has been yielded in the interval $[2, n]$. Note that in addition, the algorithm is totally correct; it terminates after a finite number of steps because its loop bounds are finite.
@@ -148,7 +150,7 @@
 	This result saves us from a lot of unnecessary set membership checking. In fact, we can recognize that this lemma follows from the earlier corollary \ref{corprime}. It is clear that if we start considering multiples of $i$ at $i^2$, when $i = \sqrt{n}$ we have reached the upper bound of sieving and the remaining numbers are the primes. We will now give the running time a rigorous treatment.
 	
 	\begin{thm}\label{runtimethm}
-		The asymptotic running time of \texttt{eratosthenes} is $O(n\log\log n)$, where $n$ is the upper limit on the sieving range.
+		The asymptotic running time of \texttt{Eratosthenes} is $O(n\log\log n)$, where $n$ is the upper limit on the sieving range.
 	\end{thm}
 	\begin{proof}
 		The noteworthy work done by the algorithm is identifying the composites; we will count these operations. For each of the $n$ iterations, we are trimming the multiples of the primes up to $n$ from the list. In particular, for $i=2$, we perform roughly $n/2$ trims, for $i=3$ we perform $n/3$, etc.\ We can write this formulation as
@@ -166,7 +168,7 @@
 	We can concretely demonstrate the running time by writing a test. We run the algorithm some number of times, and calculate the average time taken. After performing this test for several different input sizes, we can construct a plot of running time against input size. Figure \ref{runtime1} displays the running time experiment with an average of 50 trials, on sieve sizes from 1000 to 100000. The function $f(x)$ is the result of theorem \ref{runtimethm}, multiplied by a constant. Namely, we use
 	$$ f(x) = \frac{x \log \log x}{2443470.5} . $$
 	
-	\begin{figure}\caption{Asymptotic Running Time of \texttt{eratosthenes}}
+	\begin{figure}\caption{Asymptotic Running Time of \texttt{Eratosthenes}}
 		\label{runtime1}
 		\includegraphics[scale=0.5]{erat3.png}
 	\end{figure}
