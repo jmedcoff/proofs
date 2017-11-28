@@ -53,9 +53,7 @@
     \section{Introduction}
     
     Today, the generation of prime numbers is a task generally associated with hashing algorithms, public key cryptography, and searching for factors of large numbers. Most modern algorithms designed to generate primes are derived from a process devised by Eratosthenes of Cyrene in Ancient Greece. In this paper, we explore the motivating ideas about prime numbers that lead to the intuitive derivation of the Sieve of Eratosthenes, beginning with some review of elementary number theory concerning primes and composites.
-    
-%    Eratosthenes of Cyrene was a scholar; he spent his life working in the areas of geography and astronomy, including a calculation of the earth's circumference with remarkable accuracy. Among his achievements, he proposed a process to find the primes up to a given number $n$. One need only list the numbers from 2 to $n$, and cross out the multiples of numbers beginning at 2. Those that remain are not composite, and therefore must be prime.
-    
+        
     The algorithm is decidedly easy to understand, and similarly easy to implement in one's favorite programming language. In fact, the careful eye may notice potential areas of improvement in the interest of time and space. It is perhaps not surprising, then, that most modern prime generation algorithms are derived from the fundamental prime sieve due to Eratosthenes.
     
     We begin by reviewing the essential ideas of primes and composites. The Fundamental Theorem of Arithmetic describes that all numbers have a factorization of primes only, unique up to the ordering of the factors. In addition, it can be shown that at least one of a number $n$'s factors must lie in the range $[2, \sqrt{n}]$. Combining these results, we can show that for any number $n$, a prime factor in this range implies that $n$ is composite. From this, it is easily seen that to generate the primes up to $n$, we need only cross out the multiples of numbers less than $\sqrt{n}$.
@@ -113,7 +111,16 @@
 	
 	\section{Generating Primes with the Sieve of Eratosthenes}
 	
-	The Sieve of Eratosthenes is a process for generating primes up to some positive integer $n$. Roughly speaking, the process is to cross off the multiples of the numbers up to the square root of $n$. Those numbers that remain are the primes up to $n$.
+	The Sieve of Eratosthenes is a process for generating primes up to some positive integer $n$. Roughly speaking, the process is to cross off the multiples of the numbers up to the square root of $n$. Those numbers that remain are the primes up to $n$. Here we outline who Eratosthenes was, and then discuss his algorithm. The correctness of the process is rigorously argued, and then the time complexity is derived. A timed experiment is then performed to show the running time in practice.
+	
+	\subsection{Eratosthenes of Cyrene}	
+	Eratosthenes was born in Ancient Greece, in 276 BCE. He was a scholar, and had a career as the librarian at Alexandria. During his life, he made many contributions to geography; he provided accurate maps of the world, and made some of the most realistic estimates of land area of the time. He also studied climate zones, and made predictions about temperature differences of the world. 
+	
+	Perhaps his most well known achievement was measuring the circumference of the earth to a surprising degree of accuracy. Eratosthenes first assumed that rays from the sun traveled to the earth in parallel paths. He measured the noon shadow at Alexandria to be 7.2 degrees in angle. At this time, he believed the sun to be directly overhead at Syrene, Egypt. Using the distance from Syrene to Alexandria, he calculated the circumference to be 23300 miles, with an error of only about 1500 miles. 
+	
+	\subsection{The Sieve Algorithm}
+	
+	During his time as a librarian, Eratosthenes developed an efficient method for generating prime numbers. He would begin by listing integers up to some bound. After crossing off the multiples of every number below the square root of the upper bound, every number remaining would be prime.
 	
 	Consider the following algorithm.
 	
@@ -128,10 +135,10 @@
 		\end{lstlisting}
 	\end{figure}
 	
-	The python code above utilizes the ``set" data structure; this is suitable for two reasons. First, since we are only considering one list of numbers 2 to $n$, every element we are considering is unique, suggesting use of a set. Second, the code performs many membership checks. For lists, checking membership in a list of length $m$ is $O(m)$ in the average case, while for sets this check is $O(1)$.
+	The python code above utilizes the ``set" data structure; this is suitable for two reasons. First, since we are only considering one list of numbers 2 to $n$, every element we are considering is unique, suggesting the use of a set. Second, the code performs many membership checks. For lists, checking membership in a list of length $m$ is $O(m)$ in the average case, while for sets this check is $O(1)$, or constant time, regardless of the set's size.
 	
 	\begin{thm}
-		The algorithm \texttt{Eratosthenes} produces the prime numbers in the range $2, n$.
+		The algorithm \texttt{Eratosthenes} produces the prime numbers in the range $[2, n]$.
 	\end{thm}
 	\begin{proof}
 		The algorithm's correctness is easy to see based on the use of \texttt{composites}. The loop invariant here is that the set \texttt{composites} contains all composite numbers between 2 and $i$; this holds for every iteration, where we yield $i$ if it is not composite, then add multiples of $i$ from $i^2$ to $n$ to the \texttt{composites} set. At the end of the last loop, every prime has been yielded in the interval $[2, n]$. Note that in addition, the algorithm is totally correct; it terminates after a finite number of steps because its loop bounds are finite.
@@ -157,7 +164,7 @@
 		$$ \sum_{p\leq n} \frac{n}{p} = n \sum_{p \leq n} \frac{1}{p} . $$
 		Mertens's second theorem shows that
 		$$ \lim\limits_{n\rightarrow\infty} \left[ \sum_{p \leq n} \frac{1}{p} - \log\log n - M \right] = 0 $$
-		where $M$ is the Mertens constant, and rearranging terms, we observe
+		where $M=0.2614972\dots$ is the Mertens constant, and rearranging terms, we observe
 		$$ \lim\limits_{n\rightarrow\infty} \sum_{p \leq n} \frac{1}{p} = \lim\limits_{n\rightarrow\infty} \left[ \log\log n - M \right] . $$
 		We multiply by $n$ to obtain
 		$$ \lim\limits_{n\rightarrow\infty} n \sum_{p \leq n} \frac{1}{p} = \lim\limits_{n\rightarrow\infty} n \left[ \log\log n - M \right] $$
@@ -174,7 +181,68 @@
 	\end{figure}
 	
 	It is evident from figure \ref{runtime1} that the function derived from the running time analysis bounds the experimental running time. So, we have a proven, efficient method for generating prime numbers up to some value.
+	
+	\section{Improvements and a New Sieve}
+	
+	Here we will begin discussing improvements to the sieve algorithm, and derive a different way to obtain prime numbers. The sieve of Sundaram operates on similar principles as the sieve of Eratosthenes, but has some differences that make it noteworthy when discussing prime generation.
+	
+	\subsection{How to Find Odd Composites}
+	
+	Odd numbers can easily be written as $2k+1$ for some integer $k$. When we are trying to sieve primes, we would like to exclude those odd natural numbers that are composite; that is to say, those numbers that have a nontrivial factor. If we have some odd integer $a\geq3$, we can determine under what conditions $a$ is composite or prime.
+	
+	\begin{lem}\label{ijstuff}
+		Let $a\geq3$ be an integer. Then $a$ can be written as $a = 2k+1$ where $k$ is of the form $k=i+j+2ij$, if and only if $a$ is a composite number.
+	\end{lem}
+	\begin{proof}
+		We can write $a$ as
+		$$ 2k + 1 = 2(i+j+2ij) + 1 . $$
+		Then we can simplify to obtain
+		\begin{equation*}
+		\begin{split}
+		a &= 2(i+j+2ij) + 1 \\
+		  &= 4ij + 2j + 2i + 1 \\
+		  &= 2j(2i+1) + 2i + 1 \\
+		  &= (2j+1)(2i+1)
+		\end{split}
+		\end{equation*}
+		So $a$ is an odd composite, since it has nontrivial odd factors $2j+1$ and $2i+1$.
+	\end{proof}
 
+	This result gives precisely the odd numbers where we can find primes. Now we can modify the sieve to cross out integers of the form $i+j+2ij$ up to $n$, and then obtain primes as those $2k+1$ for $3 \leq k \leq n$ that have not been crossed out.
+	
+	\subsection{The Sieve of Sundaram}
+	
+	This result was shown by an Indian mathematician, S. P. Sundaram in 1934. Unfortunately, little is known about this man, besides his invention of this sieve.
+	
+	Applying lemma \ref{ijstuff}, we can write a new algorithm.
+
+	\begin{figure}[H]\caption{Sieve of Sundaram}
+		\begin{lstlisting}[language=Python]
+		from math import ceil
+		
+		def Sundaram(n):
+		    interesting_nums = set()
+		    bound = ceil((n-2)/2)
+		    for i in range(1, bound):
+		        for j in range(i, ceil((n-i)/(1+2*i))):
+		            interesting_nums.add(2*i*j+i+j)
+		
+		for k in range(1, bound):
+		    if k not in interesting_nums:
+		        yield 2*k+1
+		\end{lstlisting}
+	\end{figure}
+
+	Again, we use the set structure because of its efficiency in membership checking. This time, we use nested loops for $i$ and $j$. The proof of correctness follows easily from lemma \ref{ijstuff}.
+	
+	\begin{thm}
+		The algorithm \texttt{Sundaram} produces the prime numbers in the range $[3, n]$.
+	\end{thm}
+	\begin{proof}
+		The final output contains only those integers between $3$ and $n$ which are not of the form $2ij+i+j$, as these have been culled into \texttt{interesting\_nums}. We know from lemma \ref{ijstuff} that for some $a=2k+1$, if $k$ is not of the form $2ij+i+j$, $a$ is prime. So, the final output contains all such $2k+1$ for $k$ not of the form $2ij+i+j$.
+	\end{proof}
+
+	
 
 
 

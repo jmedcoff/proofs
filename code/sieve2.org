@@ -1,0 +1,23 @@
+#+TITLE: Sieve of Sundaram for Term Paper
+
+#+BEGIN_SRC python :session
+from math import ceil
+
+def Sundaram(n):
+    composites = set()
+    bound = ceil((n-2)/2)
+    for i in range(1, bound):
+        for j in range(i, ceil((n-i)/(1+2*i))):
+            composites.add(2*i*j+i+j)
+
+    for a in range(1, bound):
+        if a not in composites:
+            yield 2*a+1
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC python :session
+
+
+#+END_SRC
