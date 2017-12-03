@@ -1,0 +1,75 @@
+#+TITLE: Trial Division Algo for Paper
+
+#+BEGIN_SRC python :session :results output
+from math import floor, sqrt
+
+def trialdivision(n):
+    composites = set()
+    for i in range(4, n):
+        for j in range(2, i):
+            if i % j == 0:
+                composites.add(i)
+    return [x for x in range(2,n) if x not in composites]
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC python :session :results output
+trialdivision(100)
+
+#+END_SRC
+
+#+RESULTS:
+: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
+
+#+BEGIN_SRC python :session
+from math import ceil
+
+def Sundaram(n):
+    composites = set()
+    bound = int(ceil((n-2)/2))
+    for i in range(1, bound):
+        for j in range(i, int(ceil((n-i)/(1+2*i)))):
+            composites.add(2*i*j+i+j)
+    
+    return [2*a+1 for a in range(1,bound) if a not in composites]
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC python :session
+import time
+def time_algo(algo, n):
+    start = time.time()
+    algo(n)
+    end = time.time()
+    return end-start
+
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC python :session
+def time_trial(algo, iterbl):
+    avgtimes = []
+    for i in iterbl:
+        totaltime = 0
+        for j in range(10):
+            totaltime += time_algo(algo, i)
+        avgtimes.append(totaltime/10)
+    return [iterbl, avgtimes]
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC python :session :results output
+testrange = range(100, 10000, 100)
+trdiv = time_trial(trialdivision, testrange)
+sund = time_trial(Sundaram, testrange)
+trdiv + sund
+#+END_SRC
+
+#+RESULTS:
+: 
+: >>> >>> [[1, 2, 3], [3.790855407714844e-06, 3.1232833862304687e-06, 3.7670135498046877e-06], [1, 2, 3], [5.316734313964844e-06, 4.124641418457031e-06, 4.220008850097656e-06]]
+

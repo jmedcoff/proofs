@@ -5,6 +5,8 @@
 \usepackage{listings}
 \usepackage{geometry}
 \usepackage{float}
+\usepackage{mathtools}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 \usepackage{graphicx}
 \geometry{a4paper}
 
@@ -104,9 +106,41 @@
 	\begin{cor}\label{corprime}
 		Let $n>1$ be an integer. If $n$ does not have a prime factor in the range $[2, \sqrt{n}]$, it is prime.
 	\end{cor}
-	This is a combination of the contrapositive of lemma \ref{sqrt} with theorem \ref{arith}. So now, we have a way to check for primality of small numbers. For some $n$, we need only check divisibility by primes in $[2, \sqrt{n}]$. This algorithm, called trial division, is shown to be very slow on larger numbers. 
+	This is a combination of the contrapositive of lemma \ref{sqrt} with theorem \ref{arith}. So now, we have a way to check for primality of small numbers. For some $n$, we need only check divisibility by primes in $[2, \sqrt{n}]$. This algorithm, called trial division, is shown to be very slow on larger numbers.
+	
+	\begin{figure}[H]\caption{Trial Division}
+		\begin{lstlisting}[language=Python]
+		def trialdivision(n):
+		    composites = set()
+		    for i in range(4, n):
+		        for j in range(2, i):
+		            if i % j == 0:
+		                composites.add(i)
+		return [x for x in range(2,n) if x not in composites]
+		\end{lstlisting}
+	\end{figure}
+	
+	This implementation begins at 4 and iterates up to $n$. Each number is checked for factors. If a factor is not found up to the number, we leave it be. If a number is found to be composite, it is ``marked" by collecting it into a set. When the algorithm outputs at the end, it iterates through the numbers up to $n$ and gives those numbers that were not marked as composite.
 	
 	% TODO: Prove asymptotic time complexity of trial division
+	
+	\begin{thm}
+		The trial division algorithm has an asymptotic running time of $O(n^2)$.
+	\end{thm}
+	\begin{proof}
+		Consider the set update operations: we will count the number of times we update the \texttt{composites} set. The outer loop iterates $n-1$ times, and the inner loop iterates $i-1$ times. We can write the number of times \texttt{composites.add} is called as
+		\begin{equation*}
+		\begin{split}
+		\sum_{i=2}^{n} \sum_{j=2}^{i} 1 & = \sum_{i=2}^{n} i-2+1 \\
+		& = \sum_{i=2}^{n} (i-1) \\
+		& = \frac{n(n+1)}{2} - 1 - (n-1) \\
+		& = \frac{n^2 - n}{2} \\
+		& = O(n^2)
+		\end{split}
+		\end{equation*}
+	\end{proof}
+	
+	So while trial division is the most naive way to generate primes, it is far from the most efficient. Note that we can also use trial division to check some particular number for primality. This is also inefficient for large numbers.
 	
 	
 	\section{Generating Primes with the Sieve of Eratosthenes}
@@ -118,20 +152,22 @@
 	
 	Perhaps his most well known achievement was measuring the circumference of the earth to a surprising degree of accuracy. Eratosthenes first assumed that rays from the sun traveled to the earth in parallel paths. He measured the noon shadow at Alexandria to be 7.2 degrees in angle. At this time, he believed the sun to be directly overhead at Syrene, Egypt. Using the distance from Syrene to Alexandria, he calculated the circumference to be 23300 miles, with an error of only about 1500 miles. 
 	
-	\subsection{The Sieve Algorithm}
+	\subsection{The First Sieve Algorithm}
 	
-	During his time as a librarian, Eratosthenes developed an efficient method for generating prime numbers. He would begin by listing integers up to some bound. After crossing off the multiples of every number below the square root of the upper bound, every number remaining would be prime.
+	During his time as a librarian, Eratosthenes developed an efficient method for generating prime numbers. He began by listing integers up to some bound. After crossing off the multiples of every number below the square root of the upper bound, every number remaining would be prime.
 	
 	Consider the following algorithm.
 	
 	\begin{figure}[H]\caption{Sieve of Eratosthenes}
 		\begin{lstlisting}[language=Python]
 		def Eratosthenes(n):
+		    primes = []
 		    composites = set()
 		    for i in range(2, n+1):
 		        if i not in composites:
-		            yield i
+		            primes.add[i]
 		            composites.update(range(i**2, n+1, i))
+		    return primes
 		\end{lstlisting}
 	\end{figure}
 	
@@ -186,6 +222,9 @@
 	
 	Here we will begin discussing improvements to the sieve algorithm, and derive a different way to obtain prime numbers. The sieve of Sundaram operates on similar principles as the sieve of Eratosthenes, but has some differences that make it noteworthy when discussing prime generation.
 	
+	The sieve of Sundaram begins with a similar idea to the previous algorithm; we want to ``mark" or otherwise collect composite numbers, that are multiples of prime numbers. However, we can take advantage of an interesting result presented in lemma \ref{ijstuff} with regards to odd composite numbers.
+	Once the algorithm has been presented, its asymptotic running time can be proved. We also demonstrate a plot of running time against output size, as we did with the sieve of Eratosthenes.
+	
 	\subsection{How to Find Odd Composites}
 	
 	Odd numbers can easily be written as $2k+1$ for some integer $k$. When we are trying to sieve primes, we would like to exclude those odd natural numbers that are composite; that is to say, those numbers that have a nontrivial factor. If we have some odd integer $a\geq3$, we can determine under what conditions $a$ is composite or prime.
@@ -212,7 +251,7 @@
 	
 	\subsection{The Sieve of Sundaram}
 	
-	This result was shown by an Indian mathematician, S. P. Sundaram in 1934. Unfortunately, little is known about this man, besides his invention of this sieve.
+	This result was shown by an Indian mathematician, S. P. Sundaram in 1934. Unfortunately, little is known about this man, besides his invention of this sieve. 
 	
 	Applying lemma \ref{ijstuff}, we can write a new algorithm.
 
@@ -222,14 +261,13 @@
 		
 		def Sundaram(n):
 		    interesting_nums = set()
-		    bound = ceil((n-2)/2)
+		    bound = int(ceil((n-2)/2))
 		    for i in range(1, bound):
-		        for j in range(i, ceil((n-i)/(1+2*i))):
+		        for j in range(i, int(ceil((n-i)/(1+2*i)))):
 		            interesting_nums.add(2*i*j+i+j)
 		
-		for k in range(1, bound):
-		    if k not in interesting_nums:
-		        yield 2*k+1
+		return [2*a+1 for a in range(1,bound) if a not in interesting_nums]
+		
 		\end{lstlisting}
 	\end{figure}
 
@@ -239,8 +277,53 @@
 		The algorithm \texttt{Sundaram} produces the prime numbers in the range $[3, n]$.
 	\end{thm}
 	\begin{proof}
-		The final output contains only those integers between $3$ and $n$ which are not of the form $2ij+i+j$, as these have been culled into \texttt{interesting\_nums}. We know from lemma \ref{ijstuff} that for some $a=2k+1$, if $k$ is not of the form $2ij+i+j$, $a$ is prime. So, the final output contains all such $2k+1$ for $k$ not of the form $2ij+i+j$.
+		The final output contains only those integers between $3$ and $n$ which are not of the form $2ij+i+j$, as these have been culled into \texttt{interesting\_nums}. We know from lemma \ref{ijstuff} that for some $a=2k+1$, if $k$ is not of the form $2ij+i+j$, $a$ is prime. So, the final output contains all such $2k+1$ for $k$ not of the form $2ij+i+j$. The algorithm has total correctness as its loop bounds are finite.
 	\end{proof}
+	
+	\begin{thm}
+		The algorithm \texttt{Sundaram} has an asymptotic running time of $O(n^2)$.
+	\end{thm}
+	\begin{proof}
+		Once again, we will count the number of set update operations performed. We have
+		\begin{equation*}
+		\begin{split}
+		\sum_{i=1}^{\ceil*{\frac{n-2}{2}}} \sum_{j=i}^{\ceil*{\frac{n-i}{1+2i}}} 1 & = \sum_{i=1}^{\ceil*{\frac{n-2}{2}}} \ceil*{\frac{n-i}{1+2i}} - i + 1 \\
+		& = \sum_{i=1}^{\ceil*{\frac{n-2}{2}}} \ceil*{\frac{n-i}{1+2i}} - \frac{1}{8}(n^2-2n) + \ceil*{\frac{n-2}{2}}
+		\end{split}
+		\end{equation*}
+		If we ignore the first term, we can see that the remaining terms are on the order of $n^2$. The first term is a difficult summation to solve, so instead we will create an upper bound on the summand. Because the upper bound of the summation is linear in $n$, we expect a result of $O(n^2)$.
+		\begin{equation*}
+		\begin{split}
+		\frac{n-i}{1+2i} < \frac{n-i}{2i} < \frac{n-i}{i} & = \frac{n}{i} - 1 < \frac{n}{i} < n
+		\end{split}
+		\end{equation*}
+		If we use $n$ to replace $\ceil*{\frac{n-i}{1+2i}}$ in the above summation, we obtain
+		$$\frac{1}{2}(n^2 - 2n)$$
+		and so the resulting function of the runtime analysis is $O(n^2)$.
+	\end{proof}
+	
+	Again, we can construct a time experiment to observe the running time in practice. The results are shown in figure \ref{runtime2}. On first glance, the plot appears linear, but upon careful consideration, quadratic curvature can be observed. Note also that the sieve of Sundaram appears slower than the sieve of Eratosthenes by a factor of about two on an output size of 100000.
+	
+	\begin{figure}\caption{Asymptotic Running Time of \texttt{Sundaram}}
+		\label{runtime2}
+		\includegraphics[scale=0.5]{sund2.png}
+	\end{figure}
+	
+	\section{Comparison of the Two Sieves}
+	
+	This section will describe the two sieve algorithms we have seen and compare running time in theory and practice. We will elaborate on the details of each algorithm's shortcomings and strengths, with an interest in moving towards developing a more efficient sieve for large numbers.
+	
+	\subsection{Time Complexity and Practical Running Time}
+	The first point to make is a comparison of the mathematically derived asymptotic running time for each sieve. While Sundaram is polynomial, Eratosthenes beats it by having a time complexity between linear and polynomial time. A comparison of theoretical running times shows that Eratosthenes is a clear winner.
+	
+	Noting that practical considerations are also of importance, we can test the running time as a function of output size, running each algorithm several times and taking an average. The result of a side-by-side time trial gives the plot shown in figure \ref{runtimevs}.
+	
+	\begin{figure}\caption{Comparison of Running Times of Both Sieves}
+		\label{runtimevs}
+		\includegraphics[scale=0.5]{both1.png}
+	\end{figure}
+	
+	So, even when sieving smaller primes, Eratosthenes wins. Sundaram's algorithm makes clever use of lemma \ref{ijstuff}, but is still computationally inferior to Eratosthenes.
 
 	
 
