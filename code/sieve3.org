@@ -29,13 +29,45 @@ def Atkin(n):
 
 #+RESULTS:
 
-#+BEGIN_SRC python :session
-Atkin(100)
+#+BEGIN_SRC python :session :results output
+import math
+
+def setflip(s, n):
+    if n in s:
+        s.remove(n)
+    else:
+        s.add(n)
+
+def Atkin2(n):
+    is_prime = set()
+    for x in range(1, int(math.sqrt(n))+1):
+        for y in range(1, int(math.sqrt(n))+1):
+            k = 4*x**2 + y**2
+            if k<=n and (k%12==1 or k%12==5):
+                setflip(is_prime, k)
+            k = 3*x**2+y**2
+            if k<= n and k%12==7:
+                setflip(is_prime, k)
+            k = 3*x**2 - y**2
+            if x>y and k<=n and k%12==11:
+                setflip(is_prime, k)
+    for i in range(5, int(math.sqrt(n))):
+        if i in is_prime:
+            for j in range(i**2, n+1, i**2):
+                is_prime.discard(j)
+    return list(is_prime)
+#+END_SRC
+
+#+RESULTS:
+
+
+#+BEGIN_SRC python :session :results output
+Atkin2(100)
 
 #+END_SRC
 
 #+RESULTS:
-| 2 | 3 | 5 | 7 | 11 | 13 | 17 | 19 | 23 | 29 | 31 | 37 | 41 | 43 | 47 | 53 | 59 | 61 | 67 | 71 | 73 | 79 | 83 | 89 | 97 |
+: [5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
 
 #+BEGIN_SRC python :session
 import time
@@ -61,6 +93,14 @@ def time_trial(algo, iterbl):
 #+END_SRC
 
 #+RESULTS:
+
+#+BEGIN_SRC python :session
+n = 10000000
+[time_algo(Atkin2, n), time_algo(Atkin, n)]
+#+END_SRC
+
+#+RESULTS:
+| 21.6868839263916 | 20.820167064666748 |
 
 #+BEGIN_SRC python :session
 def Eratosthenes(n):
