@@ -1,0 +1,39 @@
+#+TITLE: Sieve of Atkin for Paper
+
+#+BEGIN_SRC python :session :results output
+import math
+
+def Atkin(n):
+    is_prime = [False]*(n+1)
+    for x in range(1, int(math.sqrt(n))+1):
+        for y in range(1, int(math.sqrt(n))+1):
+            k = 4*x**2 + y**2
+            if k<=n and (k%12==1 or k%12==5):
+                is_prime[k] = not is_prime[k]
+            k = 3*x**2+y**2
+            if k<= n and k%12==7:
+                is_prime[k] = not is_prime[k]
+            k = 3*x**2 - y**2
+            if x>y and k<=n and k%12==11:
+                is_prime[k] = not is_prime[k]
+    for i in range(5, int(math.sqrt(n))):
+        if is_prime[i]:
+            for j in range(i**2, n+1, i**2):
+                is_prime[j] = False
+    result = [2, 3]
+    for i in range(5,n):
+        if is_prime[i]:
+            result.append(i)
+    return result
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC python :session
+Atkin(100)
+
+#+END_SRC
+
+#+RESULTS:
+| 2 | 3 | 5 | 7 | 11 | 13 | 17 | 19 | 23 | 29 | 31 | 37 | 41 | 43 | 47 | 53 | 59 | 61 | 67 | 71 | 73 | 79 | 83 | 89 | 97 |
+

@@ -1,0 +1,105 @@
+#+TITLE: Sieve of Atkin for Paper
+
+#+BEGIN_SRC python :session :results output
+import math
+
+def Atkin(n):
+    is_prime = [False]*(n+1)
+    for x in range(1, int(math.sqrt(n))+1):
+        for y in range(1, int(math.sqrt(n))+1):
+            k = 4*x**2 + y**2
+            if k<=n and (k%12==1 or k%12==5):
+                is_prime[k] = not is_prime[k]
+            k = 3*x**2+y**2
+            if k<= n and k%12==7:
+                is_prime[k] = not is_prime[k]
+            k = 3*x**2 - y**2
+            if x>y and k<=n and k%12==11:
+                is_prime[k] = not is_prime[k]
+    for i in range(5, int(math.sqrt(n))):
+        if is_prime[i]:
+            for j in range(i**2, n+1, i**2):
+                is_prime[j] = False
+    result = [2, 3]
+    for i in range(5,n):
+        if is_prime[i]:
+            result.append(i)
+    return result
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC python :session
+Atkin(100)
+
+#+END_SRC
+
+#+RESULTS:
+| 2 | 3 | 5 | 7 | 11 | 13 | 17 | 19 | 23 | 29 | 31 | 37 | 41 | 43 | 47 | 53 | 59 | 61 | 67 | 71 | 73 | 79 | 83 | 89 | 97 |
+
+#+BEGIN_SRC python :session
+import time
+def time_algo(algo, n):
+    start = time.time()
+    algo(n)
+    end = time.time()
+    return end-start
+
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC python :session
+def time_trial(algo, iterbl):
+    avgtimes = []
+    for i in iterbl:
+        totaltime = 0
+        for j in range(20):
+            totaltime += time_algo(algo, i)
+        avgtimes.append(totaltime/20)
+    return [iterbl, avgtimes]
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC python :session
+def Eratosthenes(n):
+    a = []
+    composites = set()
+    for i in range(2, n+1):
+        if i not in composites:
+            a.append(i)
+            composites.update(range(i**2, n+1, i))
+    return a
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC python :session
+testrange = range(100000, 1000000, 100000)
+erat = time_trial(Eratosthenes, testrange)
+atkn = time_trial(Atkin, testrange)
+erat+atkn
+#+END_SRC
+
+#+name: table1
+#+RESULTS:
+| 100000 | 0.09105268478393555 | 0.22290428161621093 |
+| 200000 |  0.2655795097351074 |  0.4490779447555542 |
+| 300000 | 0.46579106330871584 |  0.6778085374832153 |
+| 400000 |  0.6746293449401856 |  0.9063622236251831 |
+| 500000 |  0.8859615182876587 |  1.1373373365402222 |
+| 600000 |   1.097673544883728 |  1.3693404340744018 |
+| 700000 |  1.3118050146102904 |  1.5996124696731568 |
+| 800000 |  1.5346636581420898 |   1.805467734336853 |
+| 900000 |  1.7484658813476563 |   2.014757537841797 |
+
+#+BEGIN_SRC gnuplot :var data=table1 :file eratkin1.png :results output
+reset
+plot data using 1:2 with lines title 'Eratosthenes', \
+     data using 1:3 with lines title 'Atkin';
+#+END_SRC
+
+#+RESULTS:
+[[file:eratkin1.png]]
+

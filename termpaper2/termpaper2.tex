@@ -314,18 +314,30 @@
 	This section will describe the two sieve algorithms we have seen and compare running time in theory and practice. We will elaborate on the details of each algorithm's shortcomings and strengths, with an interest in moving towards developing a more efficient sieve for large numbers.
 	
 	\subsection{Time Complexity and Practical Running Time}
-	The first point to make is a comparison of the mathematically derived asymptotic running time for each sieve. While Sundaram is polynomial, Eratosthenes beats it by having a time complexity between linear and polynomial time. A comparison of theoretical running times shows that Eratosthenes is a clear winner.
+	The first point to make is a comparison of the mathematically derived asymptotic running time for each sieve. While Sundaram is polynomial, Eratosthenes beats it by having a time complexity greater than linear but less than polynomial time. A comparison of theoretical running times shows that Eratosthenes is a clear winner.
 	
-	Noting that practical considerations are also of importance, we can test the running time as a function of output size, running each algorithm several times and taking an average. The result of a side-by-side time trial gives the plot shown in figure \ref{runtimevs}.
+	Noting that practical considerations are also of importance, we can test the running time as a function of output size, running each algorithm several times and taking an average. The result of a side-by-side time trial gives the plot shown in figure \ref{runtimevs}. While Sundaram's sieve is slow with respect to Eratosthenes's sieve, it still beats trial division by a wide margin, shown in figure \ref{runtimetds}.
 	
 	\begin{figure}\caption{Comparison of Running Times of Both Sieves}
 		\label{runtimevs}
 		\includegraphics[scale=0.5]{both1.png}
 	\end{figure}
 	
-	So, even when sieving smaller primes, Eratosthenes wins. Sundaram's algorithm makes clever use of lemma \ref{ijstuff}, but is still computationally inferior to Eratosthenes.
-
+	\begin{figure}\caption{Comparison of Running Times of Sundaram and Trial Division}
+		\label{runtimetds}
+		\includegraphics[scale=0.5]{sundiv.png}
+	\end{figure}
 	
+	So, even when sieving smaller primes, Eratosthenes wins. Sundaram's algorithm makes clever use of lemma \ref{ijstuff}, but is still computationally inferior to Eratosthenes.
+	
+	\subsection{Strengths and Weaknesses}
+	Intuitively, the sieve of Sundaram seemed like a potential contender against the sieve of Eratosthenes, but lost in terms of speed. The likely reason for this is the necessity to compute many numbers of the form $i+j+2ij$. The sieve of Eratosthenes has no such computation; it does not perform arithmetic when marking composite numbers, but merely iterates over multiples of primes, which is less computationally intense.
+	
+	That said, the sieve of Eratosthenes is simple, and we may intuitively believe there to be a more efficient solution. The sieve of Eratosthenes has asymptotic running time of $O(n \log \log n)$, which is sub-polynomial and therefore fast in practice. Since the running time is so close to being linear, we feel inclined to ask: does there exist a sieve algorithm that runs in linear time?
+
+	\section{Reaching for Linear Time: The Sieve of Atkin}
+	
+	We have seen two sieves that generate prime numbers up to some bound. 
 
 
 
