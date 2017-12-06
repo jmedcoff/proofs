@@ -10,6 +10,9 @@
 \usepackage{graphicx}
 \geometry{a4paper}
 
+\usepackage{trivfloat}
+\trivfloat{Algorithm}
+
 \newtheorem{thm}{Theorem}
 \newtheorem{prop}{Proposition}
 \newtheorem{lem}{Lemma}
@@ -25,7 +28,7 @@
 \theoremstyle{case}
 \newtheorem{case}{Case}
 
-\title{Prime Sieves: A Computational Perspective}
+\title{Prime Sieves, A Computational Perspective}
 \author{Jason Medcoff}
 \date{November 15, 2017}
 
@@ -33,7 +36,7 @@
     \maketitle
     
     \begin{abstract}
-    	The generation of large primes has been of great importance to modern cryptography and hashing functions. In this paper we review widely known and deceptively efficient methods for generating prime numbers: sieves. We build up to the algorithm with a review of some basic properties of primes and composites, and begin with the naive sieve of Eratosthenes. After building necessary theory, the sieves of Sundaram and Atkin are presented, and each sieve's running time is rigorously proven and shown experimentally.
+    	The generation of large primes has been of great importance to modern cryptography and hashing functions. In this paper we review widely known and deceptively efficient methods for generating prime numbers: sieves. We build up to the algorithm with a review of some basic properties of primes and composite numbers, and begin with the naive sieve of Eratosthenes. After building necessary theory, the sieves of Sundaram and Atkin are presented, and each sieve's running time is rigorously proven and shown experimentally.
     	Emphasis is placed on the mathematics behind the algorithms, with the intention of educating the student of computer science about each algorithm's place in modern prime number generation.
     \end{abstract}
     
@@ -54,26 +57,26 @@
     
     \section*{Introduction}
     
-    Today, the generation of prime numbers is a task generally associated with hashing algorithms, public key cryptography, and searching for factors of large numbers. Most modern algorithms designed to generate primes are derived from a process devised by Eratosthenes of Cyrene in Ancient Greece. In this paper, we explore the motivating ideas about prime numbers that lead to the intuitive derivation of the sieve of Eratosthenes and some of its younger relatives, beginning with some review of elementary number theory concerning primes and composites.
+    Today, the generation of prime numbers is a task generally associated with hashing algorithms, public key cryptography, and searching for factors of large numbers. Most modern algorithms designed to generate primes are derived from a process devised by Eratosthenes of Cyrene in Ancient Greece. In this paper, we explore the motivating ideas about prime numbers that lead to the intuitive derivation of the sieve of Eratosthenes and some of its younger relatives, beginning with some review of elementary number theory concerning prime and composite numbers.
         
     The algorithm is decidedly easy to understand, and similarly easy to implement in one's favorite programming language. In fact, the careful eye may notice potential areas of improvement in the interest of time and space. It is perhaps not surprising, then, that most modern prime generation algorithms are derived from the fundamental prime sieve due to Eratosthenes. We will explore two such modern sieves.
     
-    We begin by reviewing the essential ideas of primes and composites. The Fundamental Theorem of Arithmetic describes that all numbers have a factorization of primes only, unique up to the ordering of the factors. In addition, it can be shown that at least one of a composite number $n$'s factors must lie in the range $[2, \sqrt{n}]$. Combining these results, we can show that for any number $n$, a prime factor in this range implies that $n$ is composite. From this, it is easily seen that to generate the primes up to $n$, we need only ``cross out" the multiples of numbers less than $\sqrt{n}$.
+    We begin by reviewing the essential ideas of primes and composite numbers. The Fundamental Theorem of Arithmetic describes that all numbers have a factorization of primes only, unique up to the ordering of the factors. In addition, it can be shown that at least one of a composite number $n$'s factors must lie in the range $[2, \sqrt{n}]$. Combining these results, we can show that for any number $n$, a prime factor in this range implies that $n$ is composite. From this, it is easily seen that to generate the primes up to $n$, we need only ``cross out" the multiples of numbers less than $\sqrt{n}$.
     
-    Following this important result, we have all we need to implement a simple version of the Sieve of Eratosthenes, taking six lines of code. It is shown by proof of correctness that the algorithm produces all primes up to $n$. By applying Mertens's Second Theorem, we can derive the sieve's asymptotic running time. Next, a time test is performed, demonstrating the running time in practice, and we see that the asymptotic running time bounds the experimental trials.
+    Following this important result, we have all we need to implement a simple version of the Sieve of Eratosthenes, taking six lines of code. It is shown by proof of correctness that the algorithm produces all primes up to $n$. By applying Mertens's Second Theorem \cite{mertens}, we can derive the sieve's asymptotic running time. Next, a time test is performed, demonstrating the running time in practice, and we see that the asymptotic running time bounds the experimental trials.
     
-    Next, we observe areas of potential improvement of the algorithm, verify the ideas for improvement, and modify the algorithm. First, we explore odd numbers, and find a way to discern between odd primes and composites, by showing that the latter take a certain form. We similarly prove the algorithm's correctness and time complexity, then compare it to the sieve of Eratosthenes. We show that both sieves under consideration are much faster than trial division, but one clear winner appears as the output size grows.
+    Next, we observe areas of potential improvement of the algorithm, verify the ideas for improvement, and modify the algorithm. First, we explore odd numbers, and find a way to discern between odd primes and odd composite numbers, by showing that the latter take a certain form. We similarly prove the algorithm's correctness and time complexity, then compare it to the sieve of Eratosthenes. We show that both sieves under consideration are much faster than trial division, but one clear winner appears as the output size grows.
     
     As the final algorithm under consideration, the sieve of Atkin is presented, and its running time and correctness are argued. The novelty of this sieve is doing some preliminary computation for greater overhead, but trades this slower start for a faster theoretical running time.
     
     Once all three algorithms have been presented, we compare their practicality. We discuss which sieves are clear winners under certain conditions, and hypothesize about shortcomings and future improvements.
     
     
-    \section{Some Basics of Primes and Composites}
+    \section{Basics of Primes and Composites}
     
 %    By the Fundamental Theorem of Arithmetic, the prime numbers are demonstrated to be the key ingredients to producing the set of integers. Despite their significance, we know very little about where to find primes within the integers. Perhaps the biggest unsolved problem in mathematics today, the Riemann Hypothesis, makes a suggestion about the asymptotic distribution of the primes.
 	
-	Developing the prime number sieve depends upon an understanding of some important properties of prime numbers. The ideas of checking up to the square root of a number for factors and unique factorizations of composites are developed in this section. We begin with familiar definitions, and then move into groundwork that will allow the correctness of the sieve to be shown.
+	Developing the prime number sieve depends upon an understanding of some important properties of prime numbers. The ideas of checking up to the square root of a number for factors and unique factorizations of composite numbers are developed in this section. We begin with familiar definitions, and then move into groundwork that will allow the correctness of the sieve to be shown.
 
 	Recall the following definition.
 	\begin{definition}
@@ -89,7 +92,7 @@
 		
 		Next, suppose an integer $n>1$ has two prime factorizations, such that
 		$$ n = j_1 \cdots j_s = k_1 \cdots k_t $$
-		where all $j_i$ and $k_i$ are prime. By the well-ordering principle, we know that there must be a smallest $n$ satisfying this as well. Then $j_1 | n = k_1 \cdots k_t$ and since $j_1$ is prime, it must divide $k_i$ for some $i$. But we know that $k_i$ is prime too, so it must be that $j_1 = k_i$. Then we relabel $k_i$ as $k_1$ for simplicity, and we now cancel $j_1$ to obtain
+		where all $j_i$ and $k_i$ are prime. By the well-ordering principle, we know that there must be a smallest $n$ satisfying this as well. Then $j_1 \mid n = k_1 \cdots k_t$ and since $j_1$ is prime, it must divide $k_i$ for some $i$. But we know that $k_i$ is prime too, so it must be that $j_1 = k_i$. Then we relabel $k_i$ as $k_1$ for simplicity, and we now cancel $j_1$ to obtain
 		$$ j_2 \cdots j_s = k_2 \cdots k_t . $$
 		Since $n$ is the smallest positive integer that has a non-unique prime factorization, and $ j_2 \cdots j_s = k_2 \cdots k_t < n $ is a product of primes, we arrive at a contradiction. Then there cannot exist an integer $n>1$ with two different factorizations.
 	\end{proof}
@@ -98,7 +101,7 @@
 	
 	Given some number $n$, we may want to find out whether $n$ is prime or composite. Naively, we can simply enumerate the natural numbers starting at 2, and check for divisibility, stopping when we reach $n$. This algorithm, called trial division, is shown to be very slow on larger numbers.
 	
-	\begin{figure}[H]\caption{Trial Division}
+	\begin{Algorithm}[H]\caption{Trial Division}
 		\begin{lstlisting}[language=Python]
 		def trialdivision(n):
 		    composites = set()
@@ -108,7 +111,7 @@
 		                composites.add(i)
 		return [x for x in range(2,n) if x not in composites]
 		\end{lstlisting}
-	\end{figure}
+	\end{Algorithm}
 	
 	This implementation begins at 4 and iterates up to $n$. Each number is checked for factors. If a factor is not found up to the number, we leave it be. If a number is found to be composite, it is ``marked" by collecting it into a set. When the algorithm outputs at the end, it iterates through the numbers up to $n$ and gives those numbers that were not marked as composite.
 	
@@ -158,7 +161,7 @@
 	\subsection{Eratosthenes of Cyrene}	
 	Eratosthenes was born in Ancient Greece, in 276 BCE. He was a scholar, and had a career as the librarian at Alexandria. During his life, he made many contributions to geography; he provided accurate maps of the world, and made some of the most realistic estimates of land area of the time. He also studied climate zones, and made predictions about temperature differences of the world. 
 	
-	Perhaps his most well known achievement was measuring the circumference of the earth to a surprising degree of accuracy. Eratosthenes first assumed that rays from the sun traveled to the earth in parallel paths. He measured the noon shadow at Alexandria to be 7.2 degrees in angle. At this time, he believed the sun to be directly overhead at Syrene, Egypt. Using the distance from Syrene to Alexandria, he calculated the circumference to be 23300 miles, with an error of only about 1500 miles \cite{lawson2004}. 
+	Perhaps his most well known achievement was measuring the circumference of the earth to a surprising degree of accuracy. Eratosthenes first assumed that rays from the sun traveled to the earth in parallel paths. He measured the noon shadow at Alexandria to be 7.2 degrees in angle. At this time, he believed the sun to be directly overhead at Syrene, Egypt. Using the distance from Syrene to Alexandria, he calculated the circumference to be 23300 miles, with an error shown to be about 1500 miles \cite{lawson2004}. 
 	
 	\subsection{The First Sieve Algorithm}
 	
@@ -166,7 +169,7 @@
 	
 	Consider the following algorithm.
 	
-	\begin{figure}[H]\caption{Sieve of Eratosthenes}
+	\begin{Algorithm}[H]\caption{Sieve of Eratosthenes}
 		\begin{lstlisting}[language=Python]
 		def Eratosthenes(n):
 		    primes = []
@@ -177,7 +180,7 @@
 		            composites.update(range(i**2, n+1, i))
 		    return primes
 		\end{lstlisting}
-	\end{figure}
+	\end{Algorithm}
 	
 	The python code above utilizes the ``set" data structure; this is suitable for two reasons. First, since we are only considering one list of numbers 2 to $n$, every element we are considering is unique, suggesting the use of a set. Second, the code performs many membership checks. For lists, checking membership in a list of length $m$ is $O(m)$ in the average case, while for sets this check is $O(1)$, or constant time, regardless of the set's size.
 	
@@ -204,7 +207,7 @@
 		The asymptotic running time of \texttt{Eratosthenes} is $O(n\log\log n)$, where $n$ is the upper limit on the sieving range.
 	\end{thm}
 	\begin{proof}
-		The noteworthy work done by the algorithm is identifying the composites; we will count these operations. For each of the $n$ iterations, we are trimming the multiples of the primes up to $n$ from the list. In particular, for $i=2$, we perform roughly $n/2$ trims, for $i=3$ we perform $n/3$, etc.\ We can write this formulation as
+		The noteworthy work done by the algorithm is identifying composite numbers; we will count these operations. For each of the $n$ iterations, we are trimming the multiples of the primes up to $n$ from the list. In particular, for $i=2$, we perform roughly $n/2$ trims, for $i=3$ we perform $n/3$, etc.\ We can write this formulation as
 		$$ \sum_{p\leq n} \frac{n}{p} = n \sum_{p \leq n} \frac{1}{p} . $$
 		Mertens's second theorem shows that
 		$$ \lim\limits_{n\rightarrow\infty} \left[ \sum_{p \leq n} \frac{1}{p} - \log\log n - M \right] = 0 $$
@@ -216,7 +219,31 @@
 		$$ n \log \log n - nM = O(n\log\log n). $$
 	\end{proof}
 	
-	We can concretely demonstrate the running time by writing a test. We run the algorithm some number of times, and calculate the average time taken. After performing this test for several different input sizes, we can construct a plot of running time against input size. Figure \ref{runtime1} displays the running time experiment with an average of 50 trials, on sieve sizes from 1000 to 100000. The function $f(x)$ is the result of theorem \ref{runtimethm}, multiplied by a constant. Namely, we use
+	\subsection{Developing a Timing Test}
+	
+	We can concretely demonstrate the running time on computer hardware by writing a test. We run the algorithm some number of times, and calculate the average time taken. After performing this test for several different input sizes, we can construct a plot of running time against input size. Figure \ref{runtime1} displays the running time experiment with an average of 50 trials, on sieve sizes from 1000 to 100000.
+	
+	\begin{Algorithm}[H]\caption{Running Time Test Code}
+		\begin{lstlisting}[language=Python]
+		import time
+		def time_algo(algo, n):
+		start = time.time()
+		list(algo(n))
+		end = time.time()
+		return end-start
+		
+		def time_trial(algo, iterbl):
+		avgtimes = []
+		for i in iterbl:
+		totaltime = 0
+		for j in range(50):
+		totaltime += time_algo(algo, i)
+		avgtimes.append(totaltime/50)
+		return [iterbl, avgtimes]
+		\end{lstlisting}
+	\end{Algorithm}
+	
+	Now, we plot the running time data against a function $f(x)$ resulting from theorem \ref{runtimethm} multiplied by a constant. Namely, we use
 	$$ f(x) = \frac{x \log \log x}{2443470.5} . $$
 	
 	\begin{figure}\caption{Asymptotic Running Time of \texttt{Eratosthenes}}
@@ -252,7 +279,7 @@
 		  &= (2j+1)(2i+1)
 		\end{split}
 		\end{equation*}
-		So $a$ is an odd composite, since it has nontrivial odd factors $2j+1$ and $2i+1$.
+		So $a$ is an odd composite number, since it has nontrivial odd factors $2j+1$ and $2i+1$.
 	\end{proof}
 
 	This result gives precisely the odd numbers where we can find primes. Now we can modify the sieve to cross out integers of the form $i+j+2ij$ up to $n$, and then obtain primes as those $2k+1$ for $3 \leq k \leq n$ that have not been crossed out.
@@ -263,7 +290,7 @@
 	
 	Applying lemma \ref{ijstuff}, we can write a new algorithm.
 
-	\begin{figure}[H]\caption{Sieve of Sundaram}
+	\begin{Algorithm}[H]\caption{Sieve of Sundaram}
 		\begin{lstlisting}[language=Python]
         from math import ceil
         
@@ -277,7 +304,7 @@
         return [2*a+1 for a in range(1,bound) if a not in interesting_nums]
         
 		\end{lstlisting}
-	\end{figure}
+	\end{Algorithm}
 
 	Again, we use the set structure because of its efficiency in membership checking. This time, we use nested loops for $i$ and $j$. The proof of correctness follows easily from lemma \ref{ijstuff}.
 	
@@ -345,7 +372,7 @@
 
 	\section{Reaching toward Linear Time: The Sieve of Atkin}
 	
-	We have seen two sieves that generate prime numbers up to some bound. In this section, we present the final sieve of our study, the sieve of Atkin. This algorithm again marks primes and composites up to some limit, but the methods of marking here are vastly different. The theory that leads to the algorithm is considerably more involved than what was presented for the other sieves. Code for the algorithm is provided, and the asymptotic running time and correctness are shown.
+	We have seen two sieves that generate prime numbers up to some bound. In this section, we present the final sieve of our study, the sieve of Atkin. This algorithm again marks primes and composite numbers up to some limit, but the methods of marking here are vastly different. The theory that leads to the algorithm is considerably more involved than what was presented for the other sieves. Code for the algorithm is provided, and the asymptotic running time and correctness are shown.
 	
 	\subsection{Remainders and Modular Arithmetic}
 	
@@ -353,11 +380,11 @@
 	
 	Next, beginning with the lowest number in the sieve, we move to the next number marked prime, and include it in the output list of primes. Then, we square the prime and mark the multiples of the square as composite. We repeat these steps for numbers up to the square root of the upper limit. The output list then contains the primes up to the limit.
 	
-	The algorithm performs some computation before sieving, that involves looking for certain modulo 60 remainders. The full proofs regarding the quadratic forms can be found in Atkin and Bernstein \cite[p.~1028]{MR2031423}. Once these computations are finished, the sieve marks multiples of squares of primes, rather than multiples of the primes themselves. This leads to a better running time while iterating over the sieve.
+	The algorithm performs some computation before sieving, that involves looking for certain modulo 60 remainders. The full proofs regarding the quadratic forms are shown by Atkin and Bernstein \cite[p.~1028]{MR2031423}. Once these computations are finished, the sieve marks multiples of squares of primes, rather than multiples of the primes themselves. This leads to a better running time while iterating over the sieve.
 	
 	\subsection{The Sieve in Practice}
 	
-	\begin{figure}[H]\caption{Sieve of Atkin}
+	\begin{Algorithm}[H]\caption{Sieve of Atkin}
 		\begin{lstlisting}[language=Python]
         import math
         
@@ -386,7 +413,7 @@
                         is_prime.discard(j)
         return list(is_prime)
 		\end{lstlisting}
-	\end{figure}
+	\end{Algorithm}
 	
 	The code is simplified by way of some simple observations. First, any number with a mod 60 remainder of 1, 13, 17, 29, 37, 41, 49, or 53 has a mod 12 remainder of 1 or 5. Any number with a mod 60 remainder of 7, 19, 31, or 43 has a mod 12 remainder of 1, and any number with a mod 60 remainder of 11, 23, 47, or 59 will have a remainder mod 12 of 11. By observing this, we trade computation of a few large modulo computations into a few more small ones.
 	
@@ -422,40 +449,22 @@
 
 	This time, we have elected to run the sieves on very large output size, looking for primes up to one million, with the goal of escaping the dragging effect of the preliminary computations in the sieve of Atkin. Despite this, we still fail to see a point where Atkin overtakes Eratosthenes. The reasoning for this is likely twofold. First, the point where Atkin overtakes Eratosthenes may be a much larger number than one million, and the benefits of choosing Atkin over Eratosthenes may not be apparent until one attempts to generate primes of a much higher order of magnitude. Second, this simplified implementation of Atkin's sieve may not be enough to overtake Eratosthenes. Still, it is interesting to see the result; the sieves appear to be neck and neck.
 	
-	Both algorithms have potential for improvement in practice, when implementing the sieves. First, instead of using sets, a more efficient data structure could be used. While sets are good for membership checking, they take a lot of space, and could be replaced with something potentially more time efficient: bit arrays. One could initialize a bit array of length $n$, and let 0 and 1 represent prime and composite, or vice versa. Then, less space is used, and membership checking may be quicker as a result. Second, equipping sieves with wheel factorization aids in eliminating many more composites more quickly.
+	Both algorithms have potential for improvement in practice, when implementing the sieves. First, instead of using sets, a more efficient data structure could be used. While sets are good for membership checking, they take a lot of space, and could be replaced with something potentially more time efficient: bit arrays. One could initialize a bit array of length $n$, and let 0 and 1 represent prime and composite, or vice versa. Then, less space is used, and membership checking may be quicker as a result. Second, equipping sieves with wheel factorization aids in eliminating many more composite numbers more quickly.
 	
 	\section{Conclusion}
 	
 	After laying foundations in the theory of prime numbers, we discussed techniques and tricks that led to the intuitively simple sieve of Eratosthenes. After showing its time complexity and correctness, we worked toward a less trivial sieve due to Sundaram, and commented on its shortcomings when run against the sieve of Eratosthenes. Next, we showed that the contemporary sieve of Atkin was a potential contender against the sieve of Eratosthenes, and after elaborating on the algorithm, raced the two sieves. We found that despite large output size and the sieve of Atkin's preliminary work, Eratosthenes still won the race. Further improvements could be made to the algorithms present, were they to be implemented for general use. 
 	
-	Several further topics of interest are related to prime sieves. First, applications of prime generation to the RSA cryptosystem are of interest. Generally, a sieve-like method is used to filter out composites from a range of large numbers, and primality tests are used to determine prime numbers from the range. Second, primality testing arises naturally when discussing RSA or prime number generation. Until 2004, primality testing was thought to be outside the reach of a polynomial time algorithm. Agrawal, Kayal, and Saxena demonstrated a polynomial time algorithm in a paper simply titled ``Primes is in P" \cite{MR2123939}. Despite this, probabilistic tests still tend to perform better than the AKS test.
+	Several further topics of interest are related to prime sieves. First, applications of prime generation to the RSA cryptosystem are of interest. Generally, a sieve-like method is used to filter out composite numbers from a range of large numbers, and primality tests are used to determine prime numbers from the range. Second, primality testing arises naturally when discussing RSA or prime number generation. Until 2004, primality testing was thought to be outside the reach of a polynomial time algorithm. Agrawal, Kayal, and Saxena demonstrated a polynomial time algorithm in a paper simply titled ``Primes is in P" \cite{MR2123939}. Despite this, probabilistic tests still tend to perform better than the AKS test.
 	
-	Future work may yet be done on prime sieves to improve an existing sieve's asymptotic running time. Alternatively, an entirely new sieve could be developed with a novel method of determining composites. For the time being, however, the sieve of Eratosthenes and the sieve of Atkin are the standard tools in practice for generation of primes.
+	Future work may yet be done on prime sieves to improve an existing sieve's asymptotic running time. Alternatively, an entirely new sieve could be developed with a novel method of determining composite numbers. For the time being, however, the sieve of Eratosthenes and the sieve of Atkin are the standard tools in practice for generation of primes.
 	
 
 	\section*{Appendix}
 	
 	After deriving running time mathematically, experiments were run to demonstrate running time on computer hardware. Auxiliary code used to facilitate these tests follows.
 	
-	\begin{figure}[H]\caption{Running Time Test Code}
-		\begin{lstlisting}[language=Python]
-        import time
-        def time_algo(algo, n):
-            start = time.time()
-            list(algo(n))
-            end = time.time()
-            return end-start
-        
-        def time_trial(algo, iterbl):
-            avgtimes = []
-            for i in iterbl:
-                totaltime = 0
-                for j in range(50):
-                    totaltime += time_algo(algo, i)
-                avgtimes.append(totaltime/50)
-            return [iterbl, avgtimes]
-		\end{lstlisting}
-	\end{figure}
+	
 
 	\bibliographystyle{plain}
 	\bibliography{termpaper2}

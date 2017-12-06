@@ -20,9 +20,15 @@ Russell~M. Lawson.
 \newblock {\em Science in the Ancient World: An Encyclopedia}.
 \newblock Credo Reference, 2004.
 
+\bibitem{mertens}
+Franz Mertens.
+\newblock Ein beitrag zur analytischen zahlentheorie.
+\newblock {\em Journal f{\"u}r die reine und angewandte Mathematik}, 78:46--62,
+  1874.
+
 \bibitem{ogilvyanderson}
 Charles~S. Ogilvy and John~T. Anderson.
-\newblock {\em Excursions in number theory}, chapter Notes.
+\newblock {\em Excursions in number theory}, chapter Notes, page 158.
 \newblock Oxford University Press, 1966.
 
 \end{thebibliography}
