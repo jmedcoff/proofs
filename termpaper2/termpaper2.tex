@@ -225,22 +225,22 @@
 	
 	\begin{Algorithm}[H]\caption{Running Time Test Code}
 		\begin{lstlisting}[language=Python]
-		import time
-		def time_algo(algo, n):
-		start = time.time()
-		list(algo(n))
-		end = time.time()
-		return end-start
-		
-		def time_trial(algo, iterbl):
-		avgtimes = []
-		for i in iterbl:
-		totaltime = 0
-		for j in range(50):
-		totaltime += time_algo(algo, i)
-		avgtimes.append(totaltime/50)
-		return [iterbl, avgtimes]
-		\end{lstlisting}
+        import time
+        def time_algo(algo, n):
+            start = time.time()
+            list(algo(n))
+            end = time.time()
+            return end-start
+        
+        def time_trial(algo, iterbl):
+            avgtimes = []
+            for i in iterbl:
+                totaltime = 0
+                for j in range(50):
+                    totaltime += time_algo(algo, i)
+                avgtimes.append(totaltime/50)
+            return [iterbl, avgtimes]
+        \end{lstlisting}
 	\end{Algorithm}
 	
 	Now, we plot the running time data against a function $f(x)$ resulting from theorem \ref{runtimethm} multiplied by a constant. Namely, we use
